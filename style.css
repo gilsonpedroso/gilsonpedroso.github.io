@@ -23,13 +23,14 @@ a:hover {
 nav {
 display: flex;
 justify-content: space-around;
-align-items: center ;
+align-items: center;
 font-family: system-ui,
--apple-system, Helvetica, Arial.
+-apple-system, Helvetica, Arial,
 sans-serif;
-background:
+background: #23232e;
 height: 8vh;
 }
+
 /* Estilos básicos */
 body {
     font-family: Arial, sans-serif;
