@@ -1,4 +1,4 @@
-/* Reset básico */
+/* Página Inicial */
 * {
     margin: 0;
     padding: 0;
@@ -18,38 +18,7 @@ header {
     text-align: center;
 }
 
-nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
-nav ul li {
-    margin: 0 15px;
-    position: relative;
-}
-
-nav ul li:not(:last-child)::after {
-    content: "";
-    position: absolute;
-    right: -10px;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 20px;
-    width: 1px;
-    background-color: white;
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-nav ul li a:hover {
-    text-decoration: underline;
-}
 
 main {
     margin: 50px;
@@ -59,3 +28,6 @@ main {
 h1 {
     color: #007BFF;
 }
+
+
+<!--________Final da primeira página________________________________________-->
