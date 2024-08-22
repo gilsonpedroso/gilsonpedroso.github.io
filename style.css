@@ -20,7 +20,7 @@ a:hover {
     letter-spacing: 4px;
 }
 
-nav {
+nav-list{
 display: flex;
 justify-content: space-around;
 align-items: center;
