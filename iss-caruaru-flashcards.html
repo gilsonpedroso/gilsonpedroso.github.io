@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISS Caruaru 2026 — Analista Fiscal (TI) · Flashcards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,560;9..144,680&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#141B2E;
+    --ink-soft:#4A5570;
+    --paper:#F3ECDC;
+    --paper-2:#E9DFC4;
+    --paper-line: rgba(20,27,46,0.09);
+    --accent:#C1622B;
+    --brass:#B98B2A;
+    --crimson:#9B3A34;
+    --radius: 14px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background: var(--paper);
+    background-image:
+      radial-gradient(circle at 12% 8%, rgba(20,27,46,0.05), transparent 40%),
+      radial-gradient(circle at 88% 92%, rgba(20,27,46,0.05), transparent 40%),
+      repeating-linear-gradient(0deg, rgba(20,27,46,0.015) 0px, rgba(20,27,46,0.015) 1px, transparent 1px, transparent 3px);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    min-height:100vh;
+  }
+  h1,h2,h3,.display{ font-family:'Fraunces', serif; }
+  .mono{ font-family:'IBM Plex Mono', monospace; letter-spacing:0.02em; }
+  a{color:inherit;}
+  button{font-family:inherit; cursor:pointer;}
+  :focus-visible{ outline: 3px solid var(--brass); outline-offset: 2px; }
+
+  /* ---------- Nav ---------- */
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 18px clamp(16px,4vw,48px);
+    background: var(--ink);
+    color: var(--paper);
+    position:sticky; top:0; z-index:20;
+    border-bottom: 3px solid var(--brass);
+    flex-wrap:wrap; gap:10px;
+  }
+  .brand{ display:flex; align-items:center; gap:12px; }
+  .brand-link{ all:unset; display:flex; align-items:center; gap:12px; cursor:pointer; border-radius:8px; }
+  .brand-link:hover .brand-name{ text-decoration:underline; text-underline-offset:3px; }
+  .brand-link:focus-visible{ outline:2px solid var(--brass); outline-offset:3px; }
+  .brand-seal{
+    width:34px; height:34px; border-radius:50%;
+    background: conic-gradient(var(--brass), var(--accent), var(--brass));
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces',serif; font-weight:680; font-size:14px; color:var(--ink);
+    flex:none;
+  }
+  .brand-name{ font-family:'Fraunces', serif; font-weight:560; font-size:19px; }
+  .brand-sub{ font-size:11px; color:#C9C2AC; margin-top:-2px; }
+  .nav-right{ display:flex; align-items:center; gap:10px; font-size:13px; color:#D8D2BE; flex-wrap:wrap;}
+  .back-btn{
+    background:transparent; border:1px solid rgba(243,236,220,0.35); color:var(--paper);
+    padding:8px 14px; border-radius:999px; font-size:13px; display:flex; align-items:center; gap:8px;
+    transition: background .15s ease, border-color .15s ease;
+  }
+  .back-btn:hover{ background: rgba(243,236,220,0.1); border-color: var(--brass); }
+
+  main{ padding: clamp(20px,4vw,48px); max-width:1180px; margin:0 auto; }
+
+  /* ---------- Home ---------- */
+  .hero{
+    padding: clamp(28px,6vw,56px) clamp(16px,4vw,40px) clamp(8px,2vw,16px);
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero .hero-watermark{
+    position:absolute !important;
+    top:50%; left:50%; width:min(720px,140vw); height:min(720px,140vw);
+    transform:translate(-50%,-50%);
+    opacity:0.05; pointer-events:none; z-index:0;
+  }
+  .hero > *{ position:relative; z-index:1; }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase;
+    color: var(--accent); margin-bottom:14px;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .eyebrow::before, .eyebrow::after{ content:''; width:22px; height:1px; background:var(--accent); opacity:0.5; }
+  .hero h1{
+    font-size: clamp(32px,5.2vw,54px); font-weight:560; line-height:1.08; margin:0 0 18px;
+  }
+  .hero h1 em{ font-style:normal; color:var(--accent); }
+  .hero p{ max-width:620px; margin:0 auto 26px; color:var(--ink-soft); font-size:16px; line-height:1.6; }
+  .stat-row{ display:flex; gap:0; justify-content:center; flex-wrap:wrap; margin-top:8px;}
+  .stat{ text-align:center; padding:0 28px; position:relative; }
+  .stat + .stat::before{ content:''; position:absolute; left:0; top:6px; bottom:6px; width:1px; background:var(--paper-line); }
+  .stat b{ display:block; font-family:'Fraunces',serif; font-size:28px; }
+  .stat span{ font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.08em; }
+
+  .live-strip{
+    display:flex; gap:10px; justify-content:center; flex-wrap:wrap;
+    margin: 30px 0 6px;
+  }
+  .live-pill{
+    display:flex; align-items:center; gap:8px;
+    background:var(--paper-2); border:1px solid var(--paper-line);
+    border-radius:999px; padding:8px 16px; font-size:12.5px; color:var(--ink-soft);
+  }
+  .live-pill b{ color:var(--ink); font-family:'IBM Plex Mono',monospace; font-size:13px; }
+  .live-pill .dot{ width:7px; height:7px; border-radius:50%; flex:none; }
+
+  .section-label{
+    display:flex; align-items:center; gap:12px; margin: 40px 0 18px;
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .section-label::after{ content:''; flex:1; height:1px; background:var(--paper-line); }
+
+  .seal-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:20px; margin-top:8px;
+  }
+  .seal-card{
+    background: var(--paper-2);
+    border:1px solid var(--paper-line);
+    border-radius: var(--radius);
+    padding:22px 20px 20px;
+    text-align:left;
+    display:flex; flex-direction:column; gap:14px;
+    box-shadow: 0 1px 0 rgba(20,27,46,0.04);
+    transition: transform .2s cubic-bezier(.2,.8,.3,1), box-shadow .2s ease, border-color .2s ease;
+    position:relative;
+    border-top:3px solid var(--card-accent, var(--paper-line));
+    overflow:hidden;
+  }
+  .seal-card::after{
+    content:''; position:absolute; top:-40px; right:-40px; width:110px; height:110px; border-radius:50%;
+    background:var(--card-accent, transparent); opacity:0.06; pointer-events:none;
+  }
+  .seal-card:hover{
+    transform:translateY(-5px) scale(1.012);
+    box-shadow: 0 18px 34px -18px rgba(20,27,46,0.5);
+    border-color: var(--card-accent, var(--paper-line));
+  }
+  .seal-card:hover .seal{ transform: rotate(-6deg) scale(1.05); }
+
+  .seal-top{ display:flex; align-items:center; gap:14px; }
+  .seal{
+    width:52px; height:52px; border-radius:50%; flex:none;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces',serif; font-weight:680; font-size:16px; color:#fff;
+    box-shadow: inset 0 0 0 3px rgba(255,255,255,0.2), inset 0 0 0 6px rgba(255,255,255,0.08), 0 3px 8px -3px rgba(0,0,0,0.35);
+    transition: transform .3s ease;
+  }
+  .seal-card h3{ margin:0; font-size:18px; font-weight:560; line-height:1.2;}
+  .seal-card .count{ font-size:12px; color:var(--ink-soft); }
+  .seal-card p.tagline{ margin:0; font-size:13px; color:var(--ink-soft); line-height:1.5; flex:1; }
+  .enter-row{ display:flex; align-items:center; justify-content:space-between; font-size:12.5px; padding-top:12px; border-top:1px solid var(--paper-line); }
+  .enter-row .go{ font-weight:600; }
+  .mastery-row{ display:flex; align-items:center; gap:10px; }
+  .mastery-track{ flex:1; height:5px; border-radius:99px; background:rgba(20,27,46,0.08); overflow:hidden; }
+  .mastery-fill{ height:100%; border-radius:99px; }
+  .mastery-label{ font-size:11px; color:var(--ink-soft); white-space:nowrap; font-family:'IBM Plex Mono',monospace; }
+  .due-badge{ font-size:10.5px; font-family:'IBM Plex Mono',monospace; background:var(--brass); color:#fff; padding:2px 8px; border-radius:999px; }
+
+  /* ---------- Stats ---------- */
+  .stats-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:16px; margin-bottom:8px; }
+  .stats-card{ background:var(--paper-2); border:1px solid var(--paper-line); border-radius:var(--radius); padding:20px; text-align:center; }
+  .stats-big{ font-family:'Fraunces',serif; font-size:34px; font-weight:680; line-height:1; }
+  .stats-label{ font-size:12px; color:var(--ink-soft); margin-top:6px; }
+  .bar-list{ display:flex; flex-direction:column; gap:10px; }
+  .bar-row{ display:flex; align-items:center; gap:12px; }
+  .bar-label{ width:170px; flex:none; font-size:13px; }
+  .bar-track{ flex:1; height:8px; border-radius:99px; background:var(--paper-2); overflow:hidden; }
+  .bar-fill{ height:100%; border-radius:99px; }
+  .bar-pct{ width:42px; text-align:right; font-size:12px; color:var(--ink-soft); }
+  .miss-table{ display:flex; flex-direction:column; gap:8px; }
+  .miss-row{ display:flex; align-items:center; gap:12px; background:var(--paper-2); border:1px solid var(--paper-line); border-radius:10px; padding:10px 14px; }
+  .miss-seal{ width:30px; height:30px; border-radius:50%; flex:none; display:flex; align-items:center; justify-content:center; color:#fff; font-family:'IBM Plex Mono',monospace; font-size:10.5px; font-weight:600; }
+  .miss-info{ flex:1; min-width:0; }
+  .miss-term{ font-size:13.5px; font-weight:600; }
+  .miss-parent{ font-size:11.5px; color:var(--ink-soft); }
+  .miss-count{ font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--crimson); font-weight:600; }
+
+  /* ---------- Pomodoro (dropdown no menu) ---------- */
+  .pomo-nav{ position:relative; display:inline-block; }
+  .pomo-trigger{ display:flex; align-items:center; gap:7px; }
+  .pomo-dot{ width:8px; height:8px; border-radius:50%; background:#9aa1ad; flex:none; }
+  .pomo-dropdown{
+    position:absolute; top:calc(100% + 10px); right:0; z-index:60;
+    background:var(--paper-2); border:1px solid var(--paper-line); border-radius:16px;
+    box-shadow:0 16px 32px -14px rgba(20,27,46,0.5);
+    width:220px; padding:14px; display:none;
+  }
+  .pomo-nav.open .pomo-dropdown{ display:block; }
+  .pomo-label-row{ font-size:11.5px; color:var(--ink-soft); margin-bottom:8px; text-align:left; }
+  .pomo-controls{ display:flex; gap:6px; }
+  .pomo-btn{
+    border:1px solid var(--paper-line); background:#FBF7EC; color:var(--ink);
+    font-size:12px; padding:7px 10px; border-radius:999px; font-weight:600; flex:none;
+  }
+  .pomo-btn.primary{ flex:1; background:var(--ink); color:var(--paper); border-color:var(--ink); }
+  .pomo-settings{ margin-top:10px; display:flex; flex-direction:column; gap:6px; }
+  .pomo-setting-row{ display:flex; align-items:center; gap:6px; font-size:11.5px; color:var(--ink-soft); }
+  .pomo-setting-row span:first-child{ width:34px; }
+  .pomo-setting-row button{
+    width:20px; height:20px; border-radius:50%; border:1px solid var(--paper-line); background:#FBF7EC;
+    font-size:12px; line-height:1; padding:0; color:var(--ink);
+  }
+  .pomo-setting-row .mono{ min-width:16px; text-align:center; color:var(--ink); }
+  @media (max-width:640px){
+    .pomo-dropdown{ right:auto; left:0; width:200px; }
+  }
+
+  /* ---------- Import ---------- */
+  .import-guide{ background:var(--paper-2); border:1px solid var(--paper-line); border-radius:12px; padding:16px 18px; margin-bottom:18px; font-size:13.5px; }
+  .import-example{ background:#FBF7EC; border:1px solid var(--paper-line); border-radius:8px; padding:12px 14px; font-family:'IBM Plex Mono',monospace; font-size:12px; line-height:1.6; overflow-x:auto; color:var(--ink-soft); white-space:pre-wrap; margin:10px 0 0; }
+  .import-textarea{ width:100%; min-height:180px; border:1px solid var(--paper-line); border-radius:12px; padding:14px; font-family:'IBM Plex Mono',monospace; font-size:13px; background:#FBF7EC; color:var(--ink); resize:vertical; }
+  .import-msg{ font-size:13px; margin:10px 0; min-height:18px; font-weight:600; }
+
+  /* ---------- Subject header ---------- */
+  .crumbs{ font-size:12.5px; color:var(--ink-soft); margin-bottom:10px; }
+  .crumbs button{ background:none; border:none; color:var(--accent); font-size:12.5px; padding:0; font-weight:600; }
+  .subject-head{ display:flex; align-items:center; gap:16px; margin-bottom:26px; flex-wrap:wrap; }
+  .subject-head .seal{ width:60px; height:60px; font-size:18px; }
+  .subject-head h2{ margin:0; font-size:clamp(22px,3.2vw,30px); font-weight:560; }
+  .subject-head .count{ font-size:13px; color:var(--ink-soft); margin-top:2px; }
+
+  .mode-toggle{
+    display:inline-flex; background:var(--paper-2); border:1px solid var(--paper-line);
+    border-radius:999px; padding:4px; margin-left:auto; gap:2px;
+  }
+  .mode-toggle button{
+    border:none; background:transparent; padding:8px 16px; border-radius:999px; font-size:13px;
+    color: var(--ink-soft); font-weight:500; transition: background .15s ease, color .15s ease;
+  }
+  .mode-toggle button.active{ background: var(--ink); color: var(--paper); }
+
+  /* ---------- Mind map (radial, pannable) ---------- */
+  .map-viewport{
+    position:relative; overflow:hidden; margin-top:12px;
+    height:min(64vh, 620px); min-height:400px;
+    background:var(--paper-2); border:1px solid var(--paper-line); border-radius:var(--radius);
+    cursor:grab; touch-action:none;
+  }
+  .map-viewport.grabbing{ cursor:grabbing; }
+  .map-viewport.grabbing .node-card{ pointer-events:none; }
+  .map-world{ position:absolute; top:0; left:0; }
+  .map-recenter{
+    position:absolute; top:14px; right:14px; z-index:5;
+    border:1px solid var(--paper-line); background:rgba(243,236,220,0.92); color:var(--ink);
+    font-size:12px; font-weight:600; padding:7px 13px; border-radius:999px;
+    backdrop-filter:blur(2px);
+  }
+  .map-recenter:hover{ background:#fff; }
+  .map-hint{
+    position:absolute; bottom:12px; left:14px; z-index:5;
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--ink-soft);
+    background:rgba(243,236,220,0.85); border-radius:999px; padding:5px 12px;
+    pointer-events:none;
+  }
+  .connector-svg{ position:absolute; top:0; left:0; overflow:visible; pointer-events:none; }
+  .center-node{
+    position:absolute; width:150px; height:150px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    color:#fff; font-family:'Fraunces',serif; font-weight:600; font-size:15px; line-height:1.25;
+    padding:10px; transform:translate(-50%,-50%); z-index:2;
+    box-shadow: inset 0 0 0 4px rgba(255,255,255,0.16), 0 10px 24px -12px rgba(0,0,0,0.4);
+  }
+  .node-card{ position:absolute; width:190px; height:196px; transform:translate(-50%,-50%); perspective:1000px; cursor:pointer; z-index:2; }
+  .card-inner{
+    position:relative; width:100%; height:100%; transition: transform .5s cubic-bezier(.2,.7,.3,1);
+    transform-style:preserve-3d; border-radius:12px;
+  }
+  .node-card.flipped .card-inner{ transform: rotateY(180deg); }
+  .card-face{
+    position:absolute; inset:0; backface-visibility:hidden; border-radius:12px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+    padding:14px; border:1px solid var(--paper-line);
+    background: #FBF7EC;
+    box-shadow: 0 8px 18px -14px rgba(20,27,46,0.5);
+  }
+  .card-front{ font-family:'Fraunces',serif; font-weight:560; font-size:15.5px; line-height:1.3; }
+  .card-front .flip-hint{ position:absolute; bottom:8px; right:10px; font-size:10px; color:var(--ink-soft); font-family:'IBM Plex Mono',monospace; }
+  .card-back{ transform: rotateY(180deg); font-size:11.8px; line-height:1.42; color:var(--ink-soft); overflow-y:auto; gap:6px; }
+  .card-back .trap{ font-size:10.8px; background:rgba(155,58,52,0.1); color:var(--crimson); border-radius:8px; padding:6px 8px; text-align:left; }
+  .card-back .trap b{ font-family:'IBM Plex Mono',monospace; font-size:9.5px; text-transform:uppercase; letter-spacing:0.06em; display:block; margin-bottom:2px;}
+  .card-actions{ display:flex; gap:6px; flex-wrap:wrap; justify-content:center; margin-top:4px; }
+  .drill-btn{
+    border:1px solid var(--paper-line); background:var(--paper-2); color:var(--ink);
+    font-size:10.5px; padding:5px 10px; border-radius:999px; font-weight:600;
+  }
+  .quest-link{
+    border:1px solid var(--accent); background:rgba(62,124,89,0.1); color:var(--accent);
+    font-size:10.5px; padding:5px 10px; border-radius:999px; font-weight:600; text-decoration:none;
+    display:inline-block;
+  }
+  .quest-link:hover{ background:var(--accent); color:#fff; }
+  .node-card:hover .card-front{ box-shadow: 0 12px 22px -12px rgba(20,27,46,0.5); }
+
+  /* sub-branch cards (no drill, just def) */
+  .node-card.leaf{ height:170px; }
+
+  /* ---------- Flashcard mode ---------- */
+  .flash-wrap{ display:flex; flex-direction:column; align-items:center; gap:22px; padding-top:10px; }
+  .flash-progress{ display:flex; align-items:center; gap:14px; font-size:13px; color:var(--ink-soft); }
+  .flash-progress .mono{ font-size:13px; }
+  .track{ width:220px; height:5px; border-radius:99px; background:var(--paper-2); overflow:hidden; }
+  .track-fill{ height:100%; background:var(--accent); transition:width .3s ease; }
+  .flash-card{
+    width:min(560px,90vw); height:280px; perspective:1400px; cursor:pointer;
+  }
+  .flash-card .card-inner{ transition: transform .5s cubic-bezier(.2,.7,.3,1); border-radius:18px; }
+  .flash-card .card-face{
+    border-radius:18px; padding:32px;
+    background: #FBF7EC;
+    box-shadow: 0 22px 40px -22px rgba(20,27,46,0.5);
+  }
+  .flash-eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--ink-soft); margin-bottom:10px;}
+  .flash-eyebrow-link{ cursor:pointer; text-decoration:underline; text-decoration-style:dotted; text-underline-offset:3px; }
+  .flash-eyebrow-link:hover{ color:var(--accent); }
+  .flash-card .card-front{ font-size:clamp(19px,2.8vw,25px); font-weight:560; }
+  .flash-card .card-back{ font-size:15px; line-height:1.6; }
+  .tap-hint{ font-size:11px; color:var(--ink-soft); font-family:'IBM Plex Mono',monospace; }
+  .flash-controls{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; justify-content:center; }
+  .fbtn{
+    border:1px solid var(--paper-line); background:var(--paper-2); color:var(--ink);
+    padding:10px 18px; border-radius:999px; font-size:13.5px; font-weight:500;
+    transition: background .15s ease, transform .1s ease;
+  }
+  .fbtn:hover{ background:#fff; }
+  .fbtn:active{ transform:scale(0.97); }
+  .fbtn.primary{ background: var(--ink); color: var(--paper); border-color:var(--ink); }
+  .fbtn.know{ background: var(--accent); color:#fff; border-color:var(--accent); }
+  .fbtn.review{ background: var(--crimson); color:#fff; border-color:var(--crimson); }
+  .session-tally{ display:flex; gap:18px; font-size:12.5px; color:var(--ink-soft); }
+  .session-tally b{ color:var(--ink); }
+  .deck-done{ text-align:center; max-width:420px; }
+  .deck-done h3{ margin:0 0 8px; font-size:22px; }
+  .deck-done p{ color:var(--ink-soft); font-size:14px; margin:0 0 18px; }
+
+  /* ---------- Plano do dia ---------- */
+  .plan-card{ background:var(--paper-2); border:1px solid var(--paper-line); border-left:4px solid var(--accent); border-radius:var(--radius); padding:20px 22px; margin:28px 0 6px; }
+  .plan-card-head{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:14px; }
+  .plan-tag{ font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--ink-soft); }
+  .plan-exam{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--crimson); font-weight:600; }
+  .plan-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(110px,1fr)); gap:12px; }
+  .plan-item{ background:#FBF7EC; border:1px solid var(--paper-line); border-top:3px solid var(--pc, var(--accent)); border-radius:10px; padding:12px 10px; text-align:center; }
+  .plan-item b{ display:block; font-family:'Fraunces',serif; font-size:24px; line-height:1; }
+  .plan-item span{ font-size:10.5px; color:var(--ink-soft); line-height:1.3; display:block; margin-top:5px; }
+  .plan-deadline{ margin-top:14px; font-size:12px; color:var(--ink-soft); line-height:1.5; }
+  .plan-deadline b{ color:var(--crimson); }
+
+  footer{ text-align:center; padding:36px 20px 50px; font-size:12px; color:var(--ink-soft); }
+
+  @media (max-width:640px){
+    .center-node{ width:110px; height:110px; font-size:12.5px; }
+    .subject-head .mode-toggle{ margin-left:0; width:100%; }
+    .subject-head .mode-toggle button{ flex:1; text-align:center; }
+    .map-viewport{ height:58vh; }
+    .map-hint{ display:none; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+</style>
+<body>
+<nav class="nav">
+  <button class="brand brand-link" onclick="window.location.href='index.html'" aria-label="Ir para a Central de Estudos">
+    <div class="brand-seal">AF</div>
+    <div>
+      <div class="brand-name">ISS Caruaru · Analista Fiscal TI</div>
+      <div class="brand-sub">edital 01/2026 · flashcards diários</div>
+    </div>
+  </button>
+  <div class="nav-right" id="navRight"></div>
+</nav>
+<main id="app"></main>
+<footer>Conteúdo de revisão para o Edital 01/2026 (Caruaru/PE) — não substitui a leitura do edital, da lei seca e da doutrina. Seu progresso fica salvo neste navegador (localStorage), não é enviado a nenhum servidor. Se o card não abrir ou o progresso não salvar, abra este arquivo diretamente no navegador (fora de uma pré-visualização embutida).
+  <div style="margin-top:8px;"><button onclick="resetAllProgress()" style="background:none;border:none;color:var(--crimson);text-decoration:underline;font-size:12px;cursor:pointer;">Reiniciar todo o progresso salvo</button></div>
+</footer>
+
+<script>
+const ISS_COLOR = '#C1622B';
+const ISS_BANCA = '870';
+const SUBJECTS = [
+  {
+    id:'iss-tributario', nome:'Tributário & Finanças', selo:'TF', cor:'#C1622B', banca:ISS_BANCA,
+    tagline:'CTN, Reforma Tributária (EC 132/2023), LRF e finanças públicas.',
+    topicos:[
+      {t:'1. Recursos Públicos', d:'Receita pública originária (patrimônio do Estado) e derivada (tributos); tarifas são preços públicos cobrados por serviços facultativos, não tributários.',
+        pegadinha:'Tarifa (preço público) não é tributo — não se sujeita à legalidade estrita nem à anterioridade tributária.',
+        subs:[
+          {t:'Receita Originária', d:'Decorre da exploração do patrimônio estatal (bens e empresas públicas), sob regime predominantemente de direito privado.'},
+          {t:'Receita Derivada', d:'Decorre do poder de império do Estado sobre o patrimônio particular — os tributos são a principal espécie.'},
+          {t:'Tarifas / Preços Públicos', d:'Contraprestação facultativa por serviço público, de natureza contratual, não tributária, não sujeita à legalidade estrita.'},
+        ]},
+      {t:'2. O Tributo', d:'Prestação pecuniária compulsória, que não constitua sanção de ato ilícito, instituída em lei e cobrada mediante atividade administrativa vinculada (art. 3º, CTN).',
+        pegadinha:'Tributo nunca é sanção de ato ilícito — isso o distingue da multa, ainda que ambos sejam compulsórios.',
+        subs:[
+          {t:'Conceito Legal', d:'Art. 3º do CTN define tributo como prestação pecuniária compulsória, em moeda, não sancionatória, instituída em lei, cobrada por atividade vinculada.'},
+          {t:'Natureza Jurídica', d:'Determinada pelo fato gerador da obrigação, sendo irrelevantes a denominação e a destinação legal do produto da arrecadação (art. 4º, CTN).'},
+          {t:'Classificação', d:'Quanto à competência (federais, estaduais, municipais), à vinculação e à função (fiscal, extrafiscal, parafiscal).'},
+        ]},
+      {t:'3. Espécies Tributárias', d:'Teoria pentapartida (majoritária no STF): impostos, taxas, contribuições de melhoria, empréstimos compulsórios e contribuições especiais.',
+        pegadinha:'O STF adota a teoria pentapartida, incluindo empréstimos compulsórios e contribuições especiais como espécies autônomas, além das três do CTN.',
+        subs:[
+          {t:'Impostos', d:'Tributo não vinculado a atuação estatal específica, incidente sobre manifestação de riqueza do contribuinte.'},
+          {t:'Taxas', d:'Vinculadas ao exercício do poder de polícia ou à prestação de serviço público específico e divisível.'},
+          {t:'Contribuições e Empréstimos Compulsórios', d:'Contribuição de melhoria decorre de valorização imobiliária por obra pública; empréstimo compulsório exige lei complementar e casos excepcionais.'},
+        ]},
+      {t:'4. Sistema Tributário Nacional e Reforma Tributária', d:'Estrutura constitucional que distribui competências tributárias entre entes federativos, atualizada pela EC 132/2023 (Reforma Tributária do Consumo).',
+        pegadinha:'A EC 132/2023 substitui gradualmente ICMS, ISS, PIS, Cofins e IPI pelo IBS (estadual/municipal) e CBS (federal), além de criar o Imposto Seletivo.',
+        subs:[
+          {t:'Competência Tributária', d:'Privativa, comum e residual, distribuída entre União, Estados, DF e Municípios pela Constituição.'},
+          {t:'Limitações ao Poder de Tributar', d:'Princípios (legalidade, anterioridade, irretroatividade) e imunidades constitucionais protegem o contribuinte do excesso de tributação.'},
+          {t:'Repartição da Receita Tributária', d:'A Constituição prevê transferências obrigatórias de receita entre entes (ex.: fundos de participação, repasses de ICMS).'},
+          {t:'IBS, CBS e Imposto Seletivo', d:'IBS (estadual/municipal) e CBS (federal) substituem tributos sobre consumo pelo modelo de IVA dual; Imposto Seletivo incide sobre bens/serviços nocivos.'},
+          {t:'Regras de Transição (EC 132/2023)', d:'Prevê período de transição gradual (2026-2033) entre o sistema atual e o novo modelo de tributação do consumo.'},
+        ]},
+      {t:'5. Legislação Tributária', d:'Compreende leis, tratados, decretos e normas complementares que regem a instituição e cobrança de tributos, com regras próprias de vigência e interpretação.',
+        pegadinha:'Na dúvida sobre penalidades, a lei tributária interpreta-se da forma mais favorável ao acusado (art. 112, CTN).',
+        subs:[
+          {t:'Vigência e Integração', d:'Normas complementares entram em vigor na data de publicação, salvo disposição em contrário; a integração usa analogia, princípios gerais e equidade.'},
+          {t:'Interpretação e Aplicação', d:'Legislação que define infrações ou comina penalidades interpreta-se da maneira mais favorável ao acusado, em caso de dúvida (art. 112, CTN).'},
+        ]},
+      {t:'6. Obrigação Tributária', d:'Vínculo jurídico entre Fisco e contribuinte que nasce com a ocorrência do fato gerador, podendo ser principal (pecuniária) ou acessória (deveres instrumentais).',
+        pegadinha:'A capacidade tributária passiva independe da capacidade civil (art. 126, CTN) — mesmo incapazes têm obrigações tributárias.',
+        subs:[
+          {t:'Fato Gerador', d:'Situação definida em lei como necessária e suficiente para o surgimento da obrigação tributária principal.'},
+          {t:'Capacidade e Domicílio Tributário', d:'Capacidade tributária passiva independe da capacidade civil; domicílio é, em regra, eleito pelo contribuinte, com regras supletivas no CTN.'},
+          {t:'Solidariedade Tributária', d:'Pessoas com interesse comum na situação que constitua o fato gerador respondem solidariamente, sem benefício de ordem.'},
+          {t:'Obrigação Principal e Acessória', d:'Principal: pagar tributo ou penalidade. Acessória: deveres instrumentais (ex.: emitir nota fiscal), independentes de tributo devido.'},
+        ]},
+      {t:'7. Responsabilidade Tributária', d:'Hipóteses em que a lei atribui a terceiro, vinculado ao fato gerador, o dever de pagar o tributo, mesmo sem ser o contribuinte original.',
+        pegadinha:'Na substituição o dever já nasce no terceiro desde o início; na transferência, o dever surge depois do fato gerador (ex.: sucessão).',
+        subs:[
+          {t:'Responsabilidade por Substituição', d:'O substituto tributário já nasce como responsável pelo pagamento, desde a ocorrência do fato gerador, no lugar do contribuinte.'},
+          {t:'Responsabilidade por Transferência', d:'O dever de pagar se transfere a terceiro após o fato gerador, por sucessão, solidariedade ou responsabilidade de terceiros.'},
+          {t:'Modalidades de Transferência', d:'Sucessão empresarial, sucessão causa mortis, responsabilidade de sócios e administradores, entre outras hipóteses previstas no CTN.'},
+          {t:'Responsabilidade por Infrações', d:'Em regra, é objetiva, independendo da intenção do agente, salvo disposição legal expressa em contrário (art. 136, CTN).'},
+        ]},
+      {t:'8. Crédito Tributário', d:'Formalização do valor devido pelo contribuinte, constituído pelo lançamento, sujeito a suspensão, extinção ou exclusão conforme previsto no CTN.',
+        pegadinha:'Decadência extingue o direito de lançar; prescrição extingue o direito de cobrar judicialmente um crédito já constituído.',
+        subs:[
+          {t:'Lançamento Tributário', d:'Ato que constitui o crédito tributário, tornando líquida, certa e exigível a obrigação; pode ser de ofício, por declaração ou por homologação.'},
+          {t:'Suspensão da Exigibilidade', d:'Moratória, parcelamento, depósito do montante integral e liminares suspendem temporariamente a cobrança do crédito.'},
+          {t:'Extinção do Crédito', d:'Pagamento, compensação, prescrição, decadência e transação são formas de extinguir definitivamente o crédito tributário.'},
+          {t:'Exclusão do Crédito', d:'Isenção e anistia impedem a constituição do crédito antes mesmo do lançamento.'},
+          {t:'Garantias e Privilégios', d:'O crédito tributário goza de preferências sobre outros créditos, exceto os trabalhistas e os de acidente de trabalho, na falência.'},
+        ]},
+      {t:'9. Administração Tributária', d:'Conjunto de atividades de fiscalização, cobrança e controle exercidas pelo Fisco para assegurar o cumprimento das obrigações tributárias.',
+        pegadinha:'A inscrição em dívida ativa presume-se líquida e certa, mas essa presunção é relativa — admite prova em contrário.',
+        subs:[
+          {t:'Fiscalização', d:'Poderes de investigação da autoridade fiscal, com acesso a livros, documentos e informações do contribuinte, dentro dos limites legais.'},
+          {t:'Dívida Ativa', d:'Crédito tributário não pago, inscrito pela Fazenda Pública, adquirindo presunção relativa de liquidez e certeza (art. 204, CTN).'},
+          {t:'Certidões', d:'Certidão negativa (sem débitos) e certidão positiva com efeito de negativa (débitos com exigibilidade suspensa) atestam a situação fiscal.'},
+        ]},
+      {t:'10. Tributos Municipais', d:'IPTU, ISS e ITBI são os principais impostos de competência municipal, cada um com fato gerador, base de cálculo e sujeito passivo próprios.',
+        pegadinha:'Após a EC 132/2023, o ISS será progressivamente substituído pelo IBS na tributação de serviços, com regras de transição até 2033.',
+        subs:[
+          {t:'IPTU', d:'Incide sobre a propriedade predial e territorial urbana, podendo ser progressivo em razão do valor do imóvel ou de sua função social.'},
+          {t:'ISS', d:'Incide sobre a prestação de serviços de qualquer natureza, definidos em lei complementar federal, com alíquota mínima de 2%.'},
+          {t:'ITBI', d:'Incide sobre a transmissão onerosa, entre vivos, de bens imóveis e direitos reais sobre imóveis (exceto os de garantia).'},
+        ]},
+      {t:'11. Processo Administrativo Tributário', d:'Rito formal para discussão de créditos tributários e atos administrativos na esfera administrativa, com contraditório e ampla defesa asseguradas.',
+        pegadinha:'A impugnação tempestiva do lançamento suspende a exigibilidade do crédito tributário, mesmo sem depósito do valor discutido.',
+        subs:[
+          {t:'Princípios e Poderes', d:'Legalidade, oficialidade, informalismo moderado e verdade material orientam o processo administrativo em geral.'},
+          {t:'Atos e Processo Administrativo', d:'Sequência de atos formais que conduzem a uma decisão da Administração, assegurando participação do interessado.'},
+          {t:'Contencioso Administrativo Fiscal', d:'Fase litigiosa em que o contribuinte impugna o lançamento perante órgãos julgadores administrativos.'},
+          {t:'Impugnações, Recursos e Nulidades', d:'Impugnação inaugura a fase litigiosa; recursos levam a instâncias superiores; nulidades decorrem de vícios de competência ou forma.'},
+        ]},
+      {t:'12. Finanças Públicas e Orçamento', d:'Conjunto de normas e princípios que regem a obtenção, gestão e aplicação dos recursos públicos, materializados no ciclo orçamentário.',
+        pegadinha:'O PPA é planejamento de médio prazo (4 anos); a LDO orienta a LOA; a LOA autoriza a execução da despesa anual.',
+        subs:[
+          {t:'Receita e Despesa Pública', d:'Receita: ingresso de recursos aos cofres públicos. Despesa: aplicação desses recursos, classificada em correntes e de capital.'},
+          {t:'PPA', d:'Plano Plurianual estabelece diretrizes, objetivos e metas da administração pública para um período de quatro anos.'},
+          {t:'LDO', d:'Lei de Diretrizes Orçamentárias orienta a elaboração da LOA, define metas fiscais e prioridades para o exercício seguinte.'},
+          {t:'LOA', d:'Lei Orçamentária Anual estima receitas e fixa despesas para o exercício financeiro, viabilizando a execução orçamentária.'},
+        ]},
+      {t:'13. Administração Pública Gerencial e Governança', d:'Modelo de gestão pública voltado a resultados, eficiência, transparência e controle, superando o modelo burocrático tradicional.',
+        pegadinha:'Governança pública envolve mecanismos de liderança, estratégia e controle para entregar valor à sociedade — não se confunde com "governo".',
+        subs:[
+          {t:'Administração Gerencial', d:'Foco em resultados, eficiência e flexibilidade, em contraposição ao modelo burocrático rígido e ao patrimonialismo.'},
+          {t:'Governança Pública', d:'Mecanismos de liderança, estratégia e controle para avaliar, direcionar e monitorar a gestão, visando entregar valor à sociedade.'},
+          {t:'Transparência e Controle Interno', d:'Transparência assegura acesso à informação pública; controle interno monitora a conformidade e a eficiência da gestão.'},
+          {t:'Responsabilidade na Gestão Fiscal', d:'Conjunto de práticas que asseguram o equilíbrio das contas públicas e o cumprimento de metas fiscais.'},
+        ]},
+      {t:'14. Lei de Responsabilidade Fiscal (LC 101/2000)', d:'Estabelece normas de finanças públicas voltadas para a responsabilidade na gestão fiscal, com foco em planejamento, transparência e controle de gastos.',
+        pegadinha:'A LRF limita despesas com pessoal a percentuais da Receita Corrente Líquida (RCL), variando conforme o Poder e o ente federativo.',
+        subs:[
+          {t:'Princípios da LRF', d:'Planejamento, transparência, controle e responsabilização orientam toda a gestão fiscal dos entes federativos.'},
+          {t:'Limites Fiscais', d:'Estabelece limites para despesas com pessoal (percentual da RCL) e para o endividamento público de cada ente.'},
+          {t:'Receitas Públicas na LRF', d:'Exige estimativa e previsão adequadas de receitas, bem como mecanismos de compensação para a renúncia de receita.'},
+          {t:'Transparência da Gestão Fiscal', d:'RREO e RGF (Relatório Resumido de Execução Orçamentária e Relatório de Gestão Fiscal) são instrumentos de transparência exigidos pela LRF.'},
+        ]},
+    ]
+  },
+  {
+    id:'iss-ti', nome:'Tecnologia da Informação', selo:'TI', cor:'#A8501F', banca:ISS_BANCA,
+    tagline:'Hardware, redes, engenharia de software, banco de dados e IA.',
+    topicos:[
+      {t:'1. Microinformática e Arquitetura de Computadores', d:'Componentes de hardware, sistemas de numeração e arquiteturas que formam a base de um sistema computacional.',
+        pegadinha:'RAID aumenta desempenho e/ou redundância, mas RAID não é backup — falhas lógicas ou exclusões acidentais não são protegidas por RAID.',
+        subs:[
+          {t:'Conceitos e Sistemas de Numeração', d:'Modalidades de processamento e sistemas de numeração (binário, octal, decimal, hexadecimal) usados na representação de dados.'},
+          {t:'Hardware', d:'Componentes, dispositivos de entrada/saída, memórias, armazenamento, barramentos e conectores que compõem um sistema computacional.'},
+          {t:'Arquitetura de Processadores', d:'Componentes e arquiteturas de sistemas computacionais, incluindo hardware, software e organização interna dos processadores.'},
+          {t:'Alta Disponibilidade e RAID', d:'Ambientes de alta disponibilidade e RAID garantem redundância e continuidade de operação em caso de falhas.'},
+          {t:'Storage e Computação em Nuvem', d:'DAS, NAS e SAN são arquiteturas de armazenamento; computação em nuvem e em grid distribuem processamento e dados.'},
+        ]},
+      {t:'2. Software e Sistemas Operacionais', d:'Classificação de software e funções centrais de um sistema operacional: gerência de processos, memória e dispositivos.',
+        pegadinha:'Memória virtual permite executar programas maiores que a RAM física, usando espaço em disco (swap/paginação) como extensão.',
+        subs:[
+          {t:'Conceitos e Classificação', d:'Software livre, básico, integrado e aplicativo classificam os programas conforme finalidade e licenciamento.'},
+          {t:'Gerenciamento de Processos e Memória', d:'O SO gerencia processos, aloca memória por paginação, segmentação e memória virtual, e administra dispositivos de E/S.'},
+          {t:'Virtualização', d:'Permite executar múltiplos sistemas operacionais isolados sobre o mesmo hardware físico, otimizando recursos.'},
+          {t:'Windows x Linux', d:'Diferem em licenciamento, interface, estrutura de diretórios, gerenciamento de pacotes e comandos de terminal.'},
+          {t:'Pacotes de Escritório', d:'MS Office, Microsoft 365 e LibreOffice/Google Docs oferecem processador de texto, planilha e apresentação, com recursos equivalentes.'},
+        ]},
+      {t:'3. Redes de Computadores e Web', d:'Fundamentos de comunicação de dados, modelos de referência, endereçamento IP e segurança de redes.',
+        pegadinha:'HTTPS usa TLS/SSL para criptografar a comunicação e autenticar o servidor via certificado digital — não é apenas "HTTP mais seguro".',
+        subs:[
+          {t:'Fundamentos e Topologias', d:'Comunicação de dados, topologias de rede (estrela, barramento, anel) e meios de transmissão físicos e sem fio.'},
+          {t:'Modelo OSI e TCP/IP', d:'OSI (7 camadas) é um modelo de referência teórico; TCP/IP (4 camadas) é o modelo prático usado na Internet.'},
+          {t:'Endereçamento IP', d:'Máscara de rede, CIDR e NAT permitem organizar e traduzir endereços IP entre redes públicas e privadas.'},
+          {t:'Segurança de Redes', d:'Confidencialidade, integridade e disponibilidade (tríade CIA), controle de acesso, autenticação, firewall e criptografia protegem redes.'},
+          {t:'Serviços de Internet', d:'DNS traduz nomes em IPs; DHCP atribui IPs automaticamente; SMTP/IMAP tratam e-mail; HTTP/HTTPS tratam a web.'},
+        ]},
+      {t:'4. Projeto, Análise e Desenvolvimento de Sistemas', d:'Ciclo de vida do software, metodologias, orientação a objetos e qualidade de software.',
+        pegadinha:'UML é uma linguagem de modelagem, não uma metodologia de desenvolvimento — pode ser usada em processos ágeis ou tradicionais.',
+        subs:[
+          {t:'Engenharia de Software', d:'Aplica princípios de engenharia ao desenvolvimento de software, cobrindo todo o ciclo de vida do sistema.'},
+          {t:'Ciclo de Vida e Metodologias', d:'Viabilidade, requisitos, especificação, implementação e manutenção são fases típicas; metodologias variam entre cascata e ágeis.'},
+          {t:'Orientação a Objetos e UML', d:'Paradigma baseado em classes e objetos; UML fornece diagramas padronizados para modelar sistemas orientados a objetos.'},
+          {t:'Testes e Interface', d:'Testes verificam a corretude do software; a interface homem-máquina foca na usabilidade e ergonomia da interação.'},
+        ]},
+      {t:'5. Bancos de Dados', d:'Modelagem, linguagem SQL e principais sistemas gerenciadores de banco de dados relacionais.',
+        pegadinha:'Formas normais mais altas reduzem redundância, mas podem exigir mais junções (joins), afetando o desempenho de consultas.',
+        subs:[
+          {t:'Modelagem', d:'MER (Modelo Entidade-Relacionamento) e DER (Diagrama Entidade-Relacionamento) representam a estrutura conceitual dos dados.'},
+          {t:'SQL', d:'Linguagem padrão para definição (DDL), manipulação (DML) e consulta (DQL) de dados em bancos relacionais.'},
+          {t:'SGBDs', d:'MySQL, SQL Server, Oracle e PostgreSQL são sistemas gerenciadores de banco de dados relacionais, cada um com características próprias.'},
+        ]},
+      {t:'6. Algoritmos e Linguagens de Programação', d:'Estruturas básicas de controle de fluxo, pseudocódigo, funções e linguagens usadas no desenvolvimento web.',
+        pegadinha:'Passagem por valor cria uma cópia do dado (o original não é alterado); passagem por referência opera diretamente sobre o original.',
+        subs:[
+          {t:'Estruturas de Controle', d:'Sequência, seleção (condicionais) e repetição (laços) são as estruturas básicas de controle de fluxo em algoritmos.'},
+          {t:'Pseudocódigo e Fluxograma', d:'Representações independentes de linguagem para descrever a lógica de um algoritmo antes da implementação.'},
+          {t:'Procedimentos e Parâmetros', d:'Funções/procedimentos organizam código reutilizável; parâmetros podem ser passados por valor ou por referência.'},
+          {t:'Linguagens Web', d:'HTML/CSS estruturam e estilizam páginas; JavaScript, PHP e .NET adicionam lógica e processamento no cliente ou servidor.'},
+        ]},
+      {t:'7. Gestão e Tecnologia da Informação', d:'Frameworks e práticas de governança, gerenciamento de projetos e sistemas de apoio à decisão em TI.',
+        pegadinha:'COBIT foca em governança e controle de TI (o quê fazer); ITIL foca em gerenciamento de serviços de TI (como fazer) — são complementares.',
+        subs:[
+          {t:'Sistemas de Informação e BI', d:'Data Warehouse armazena dados históricos para análise; Data Mining extrai padrões; BI apoia a tomada de decisão.'},
+          {t:'Gerência de Projetos', d:'PMI/PMBOK fornece boas práticas para planejar, executar e controlar projetos de TI dentro de prazo, custo e escopo.'},
+          {t:'Governança de TI', d:'COBIT e ITIL são frameworks de governança e gerenciamento de serviços de TI, com objetivos e ênfases distintas.'},
+          {t:'ERP', d:'Sistema integrado que unifica processos de negócio (financeiro, estoque, RH etc.) em uma única plataforma corporativa.'},
+        ]},
+      {t:'8. Inteligência Artificial', d:'Conceitos, subcampos e implicações éticas do uso de IA em sistemas modernos.',
+        pegadinha:'Machine Learning é um subconjunto da IA; Deep Learning é um subconjunto do Machine Learning — nem toda IA usa deep learning.',
+        subs:[
+          {t:'Definição e Tipos', d:'IA busca simular capacidades cognitivas humanas; inclui subcampos como machine learning e deep learning.'},
+          {t:'Deep Learning', d:'Utiliza redes neurais profundas com múltiplas camadas para aprender representações complexas a partir de grandes volumes de dados.'},
+          {t:'Aplicações e Casos de Uso', d:'Chatbots como o ChatGPT exemplificam aplicações de IA generativa em processamento de linguagem natural.'},
+          {t:'Ética e Governança de IA', d:'Aborda riscos, vieses algorítmicos, transparência e responsabilidade no desenvolvimento e uso de sistemas de IA.'},
+        ]},
+    ]
+  },
+  {
+    id:'iss-portugues', nome:'Português (Núcleo Comum)', selo:'PT', cor:'#D68438', banca:ISS_BANCA,
+    tagline:'Leitura, gramática e estilística cobradas em todos os cargos.',
+    topicos:[
+      {t:'Leitura e Organização do Discurso', d:'Compreensão de textos e reconhecimento dos modos e gêneros usados para estruturar a comunicação escrita.',
+        pegadinha:'Um mesmo texto pode combinar mais de um modo de organização (ex.: narrativo com trechos descritivos) — a banca cobra o modo predominante.',
+        subs:[
+          {t:'Leitura e Compreensão', d:'Interpretação de textos variados exige identificar ideia central, intenção do autor e informações implícitas e explícitas.'},
+          {t:'Modos de Organização do Discurso', d:'Descritivo, narrativo, argumentativo, injuntivo, expositivo e dissertativo são formas de estruturar um texto conforme sua finalidade.'},
+          {t:'Gêneros do Discurso', d:'Cada gênero textual tem elementos e convenções próprias, reconhecíveis pela estrutura, linguagem e contexto de circulação.'},
+        ]},
+      {t:'Coesão, Coerência e Relações Textuais', d:'Mecanismos que ligam as partes do texto e garantem sua unidade de sentido.',
+        pegadinha:'Coesão é um mecanismo linguístico (visível no texto); coerência é uma propriedade de sentido (pode existir mesmo com falhas de coesão).',
+        subs:[
+          {t:'Coesão e Coerência', d:'Coesão liga as partes do texto por mecanismos linguísticos; coerência garante o sentido lógico global do texto.'},
+          {t:'Relações entre Partes do Texto', d:'Causa, consequência, comparação, conclusão, exemplificação e generalização articulam as ideias dentro do texto.'},
+          {t:'Conectivos', d:'Classificam-se conforme a relação que estabelecem (adição, oposição, causa etc.), influenciando diretamente o sentido do texto.'},
+        ]},
+      {t:'Morfologia e Sintaxe', d:'Classes de palavras, regência e a estrutura das orações no período simples e composto.',
+        pegadinha:'Regência verbal muda o sentido de certos verbos (ex.: "assistir" ao filme x "assistir" o doente) — atenção à preposição exigida.',
+        subs:[
+          {t:'Verbos', d:'Pessoa, número, tempo, modo e vozes verbais (ativa, passiva, reflexiva); transitividade verbal e nominal.'},
+          {t:'Classes de Palavras', d:'Estrutura, classificação e formação de palavras; funções e flexão nominal e verbal.'},
+          {t:'Regência', d:'Regência verbal e nominal definem o uso correto das preposições exigidas por verbos e nomes.'},
+          {t:'Sintaxe do Período Simples', d:'Estudo dos termos da oração (sujeito, predicado, complementos) dentro de um período com uma única oração.'},
+          {t:'Coordenação e Subordinação', d:'Período composto por coordenação (orações independentes) ou subordinação (oração principal e dependente).'},
+        ]},
+      {t:'Pronomes e Estilística', d:'Colocação pronominal e recursos expressivos usados para dar efeito e intenção ao texto.',
+        pegadinha:'Próclise, mesóclise e ênclise têm regras específicas de uso conforme o contexto (início de frase, palavras atrativas, futuro do verbo).',
+        subs:[
+          {t:'Pronomes', d:'Emprego, formas de tratamento e colocação pronominal (próclise, mesóclise e ênclise).'},
+          {t:'Figuras de Linguagem', d:'Recursos estilísticos (metáfora, metonímia, hipérbole etc.) que conferem expressividade ao texto.'},
+          {t:'Funções da Linguagem', d:'Referencial, emotiva, conativa, fática, metalinguística e poética, conforme o elemento da comunicação enfatizado.'},
+        ]},
+      {t:'Léxico e Ortografia', d:'Relações de sentido entre palavras e regras de grafia e acentuação da norma-padrão.',
+        pegadinha:'Parônimos têm grafia e som parecidos mas sentidos diferentes (ex.: "cumprimento" x "comprimento") — não confundir com homônimos.',
+        subs:[
+          {t:'Sinônimos, Antônimos, Parônimos e Homônimos', d:'Relações de sentido e semelhança sonora/gráfica entre palavras, frequentemente cobradas em questões de vocabulário.'},
+          {t:'Acentuação Gráfica', d:'Regras de acentuação conforme a tonicidade e terminação das palavras, seguindo o Novo Acordo Ortográfico.'},
+          {t:'Ortografia', d:'Emprego correto das letras e regras de grafia das palavras na norma-padrão da língua portuguesa.'},
+        ]},
+      {t:'Pontuação e Recursos Gráficos', d:'Sinais de pontuação e recursos gráficos que organizam e esclarecem o sentido do texto, incluindo a crase.',
+        pegadinha:'Antes de verbo, de palavra masculina ou de pronome que não admite artigo, a crase não ocorre.',
+        subs:[
+          {t:'Pontuação', d:'Regras de uso da vírgula, ponto e vírgula, dois-pontos e demais sinais, e seus efeitos de sentido no texto.'},
+          {t:'Recursos Gráficos', d:'Uso de itálico, aspas, maiúsculas e outros recursos gráficos com efeitos de sentido específicos.'},
+          {t:'Crase', d:'Fusão da preposição "a" com o artigo "a(s)", indicada pelo acento grave, diante de palavra feminina regida por "a".'},
+        ]},
+    ]
+  },
+  {
+    id:'iss-rlm', nome:'Raciocínio Lógico', selo:'RL', cor:'#B04A28', banca:ISS_BANCA,
+    tagline:'Conjuntos, lógica proposicional, contagem e probabilidade.',
+    topicos:[
+      {t:'Conjuntos e Raciocínio Numérico', d:'Operações entre conjuntos e problemas de raciocínio envolvendo números e sequências.',
+        pegadinha:'Em questões de conjuntos com 3 grupos, cuidado para não somar duas vezes os elementos das interseções — use o princípio da inclusão-exclusão.',
+        subs:[
+          {t:'Operações com Conjuntos', d:'União, interseção, diferença e complementar são operações básicas entre conjuntos, representadas em diagramas de Venn.'},
+          {t:'Raciocínio Lógico Numérico', d:'Problemas envolvendo operações com números reais e identificação de padrões em sequências lógicas.'},
+        ]},
+      {t:'Lógica Proposicional', d:'Proposições, conectivos, tabelas-verdade e estruturas de argumentação válida.',
+        pegadinha:'A negação de "todo A é B" não é "nenhum A é B", e sim "existe A que não é B" — erro clássico com quantificadores.',
+        subs:[
+          {t:'Proposições e Tabela-Verdade', d:'Proposições têm valor lógico (V ou F); conectivos (e, ou, não, se-então) combinam proposições, analisados via tabela-verdade.'},
+          {t:'Tautologias e Condição Necessária/Suficiente', d:'Tautologia é sempre verdadeira; condição necessária e suficiente relacionam a validade de implicações lógicas.'},
+          {t:'Argumentação e Diagramas Lógicos', d:'Estruturas lógicas e diagramas ajudam a validar ou refutar argumentos com base nas premissas apresentadas.'},
+          {t:'Equivalências e Quantificadores', d:'Equivalências lógicas simplificam proposições; quantificadores universal (todo) e existencial (algum) qualificam afirmações.'},
+        ]},
+      {t:'Combinatória e Probabilidade', d:'Técnicas de contagem e cálculo de chances em eventos simples e compostos.',
+        pegadinha:'Combinação não considera a ordem dos elementos; arranjo e permutação consideram — confundir os dois é o erro mais comum da prova.',
+        subs:[
+          {t:'Princípios de Contagem', d:'Princípio Aditivo (ou) e Multiplicativo (e) são a base para resolver problemas de contagem.'},
+          {t:'Arranjos, Combinações e Permutações', d:'Diferenciam-se pela importância da ordem e pela repetição dos elementos agrupados.'},
+          {t:'Noções de Probabilidade', d:'Razão entre casos favoráveis e possíveis, aplicada a eventos simples e compostos.'},
+        ]},
+    ]
+  },
+  {
+    id:'iss-informatica', nome:'Informática (Núcleo Comum)', selo:'IN', cor:'#8F5A2E', banca:ISS_BANCA,
+    tagline:'Hardware, pacotes de escritório, segurança e ferramentas de nuvem.',
+    topicos:[
+      {t:'Hardware e Sistemas Operacionais', d:'Componentes básicos de um computador e as diferenças fundamentais entre Windows e Linux.',
+        pegadinha:'No Linux, tudo é tratado como arquivo (inclusive dispositivos), e as permissões seguem o modelo dono/grupo/outros (rwx).',
+        subs:[
+          {t:'Hardware e Periféricos', d:'Componentes, dispositivos de entrada/saída, memória e unidades de armazenamento compõem a arquitetura básica de um computador.'},
+          {t:'Windows e Linux', d:'Sistemas operacionais com interfaces, estruturas de diretórios e comandos próprios; Linux possui diversas distribuições.'},
+          {t:'Sistemas de Arquivos', d:'Organizam e controlam o armazenamento de dados em disco, incluindo permissões e segurança de arquivos.'},
+        ]},
+      {t:'Pacotes de Escritório', d:'Ferramentas de edição de texto, planilhas e apresentações usadas no dia a dia administrativo.',
+        pegadinha:'No Excel/Calc, referências absolutas ($A$1) não mudam ao copiar a fórmula; relativas (A1) mudam conforme a posição.',
+        subs:[
+          {t:'MS Office e Microsoft 365', d:'Word, Excel, PowerPoint e Access (ou equivalentes online) cobrem edição de texto, planilhas, apresentações e bancos de dados simples.'},
+          {t:'LibreOffice', d:'Suíte de escritório livre e gratuita, com Writer, Calc, Impress e Base como equivalentes ao Word, Excel, PowerPoint e Access.'},
+          {t:'Edição e Formatação', d:'Recursos de formatação de texto, fórmulas em planilhas e criação de slides são cobrados na prática dessas ferramentas.'},
+        ]},
+      {t:'Segurança da Informação', d:'Princípios e ferramentas que protegem dados e sistemas contra acesso indevido e perda.',
+        pegadinha:'A LGPD trata do tratamento de dados pessoais — se aplica tanto a empresas privadas quanto a órgãos públicos, com regras específicas para cada um.',
+        subs:[
+          {t:'Pilares da Segurança', d:'Confidencialidade, integridade e disponibilidade formam a base conceitual da segurança da informação.'},
+          {t:'Vírus, Backup e Firewall', d:'Antivírus detecta e remove malware; backup previne perda de dados; firewall controla o tráfego de rede.'},
+          {t:'LGPD', d:'Lei Geral de Proteção de Dados regula o tratamento de dados pessoais por empresas e órgãos públicos no Brasil.'},
+        ]},
+      {t:'Redes de Computadores', d:'Conceitos básicos de comunicação em rede e os modelos que organizam essa comunicação em camadas.',
+        pegadinha:'Uma máscara /24 (255.255.255.0) permite 254 hosts utilizáveis na sub-rede — cuidado com o endereço de rede e o de broadcast.',
+        subs:[
+          {t:'Conceitos e Meios de Transmissão', d:'Cabos, conectores e tecnologias sem fio (Wi-Fi) permitem a comunicação entre dispositivos em rede.'},
+          {t:'Modelo OSI e TCP/IP', d:'Modelos de referência que organizam em camadas o funcionamento da comunicação em rede.'},
+          {t:'Configuração Básica', d:'Máscara de rede/sub-rede e utilitários básicos permitem configurar e verificar o funcionamento de uma rede.'},
+        ]},
+      {t:'Internet, Navegadores e E-mail', d:'Diferenças entre internet, intranet e extranet, e as ferramentas usadas para navegar e trocar mensagens.',
+        pegadinha:'Extranet é uma extensão controlada da intranet, acessível a parceiros externos autorizados — não é sinônimo de internet pública.',
+        subs:[
+          {t:'Internet, Intranet e Extranet', d:'Diferem pelo escopo de acesso: público (internet), interno a uma organização (intranet) ou compartilhado com parceiros (extranet).'},
+          {t:'Navegadores', d:'Edge, Chrome e Firefox são os principais navegadores usados para acessar a web, com recursos e atalhos próprios.'},
+          {t:'E-mail e Webmail', d:'Thunderbird e Outlook são clientes de e-mail; webmail permite acesso via navegador, sem necessidade de instalação.'},
+        ]},
+      {t:'Nuvem, Redes Sociais e Ferramentas Google/Microsoft', d:'Serviços online de armazenamento, colaboração e produtividade amplamente cobrados em provas.',
+        pegadinha:'Google Docs, Planilhas e Drive salvam automaticamente na nuvem — diferente do modelo tradicional de "salvar" localmente.',
+        subs:[
+          {t:'Computação em Nuvem', d:'Permite armazenar e processar dados remotamente, acessíveis de qualquer lugar com conexão à internet.'},
+          {t:'Ferramentas Google', d:'Gmail, Google Meet, Documentos, Planilhas, Drive e Agenda oferecem produtividade e colaboração online.'},
+          {t:'Microsoft Teams', d:'Plataforma de comunicação e colaboração corporativa, integrada ao Microsoft 365.'},
+        ]},
+    ]
+  },
+];
+
+const app = document.getElementById('app');
+const navRight = document.getElementById('navRight');
+let state = { view:'home', subjectId:null, topicIdx:null, mode:'map' };
+let flashState = {}; // per subject: {queue:[cardKey...], pos, know, review, done, empty}
+
+/* ---------- Datas-chave do Edital 01/2026 (Caruaru/PE) ---------- */
+const EXAM_DATE = new Date('2026-11-29T09:10:00-03:00');
+const INSCR_END = new Date('2026-10-08T23:59:00-03:00');
+const ISENCAO_END = new Date('2026-08-14T18:00:00-03:00');
+function daysUntil(target){
+  return Math.ceil((target.getTime() - Date.now())/86400000);
+}
+
+/* ---------- Spaced repetition (Leitner, 5 caixas) + persistência ---------- */
+const STORAGE_KEY = 'issCaruaruProgress_v1';
+const BOX_DAYS = [0,1,2,4,9,21]; // dias até a próxima revisão, por caixa (0..5)
+let storageOK = true;
+let progress = {};
+try{
+  const raw = localStorage.getItem(STORAGE_KEY);
+  progress = raw ? JSON.parse(raw) : {};
+}catch(e){ storageOK = false; progress = {}; }
+
+function saveProgress(){
+  if(!storageOK) return;
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(progress)); }
+  catch(e){ storageOK = false; }
+}
+function cardKey(subId, ti, si){ return subId+':'+ti+':'+si; }
+function getCardState(key){ return progress[key] || {box:0, due:0, reps:0}; }
+function setCardState(key, st){ progress[key] = st; saveProgress(); }
+
+function subjectStats(sub){
+  const leaves = flattenLeaves(sub);
+  const now = Date.now();
+  let mastered=0, due=0;
+  leaves.forEach(l=>{
+    const st = getCardState(l.key);
+    if(st.box>=5) mastered++;
+    if(st.due<=now) due++;
+  });
+  return {total:leaves.length, mastered, due};
+}
+
+/* ---------- Sequência de estudo (streak) ---------- */
+const STUDY_KEY = 'issCaruaruStudyDays_v1';
+let studyDays = new Set();
+try{
+  const raw = localStorage.getItem(STUDY_KEY);
+  studyDays = new Set(raw ? JSON.parse(raw) : []);
+}catch(e){}
+
+function todayStr(d){
+  d = d || new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+function logStudyToday(){
+  const t = todayStr();
+  if(!studyDays.has(t)){
+    studyDays.add(t);
+    try{ localStorage.setItem(STUDY_KEY, JSON.stringify([...studyDays])); }catch(e){}
+  }
+}
+function computeStreak(){
+  let streak=0;
+  let d = new Date();
+  while(studyDays.has(todayStr(d))){
+    streak++;
+    d.setDate(d.getDate()-1);
+  }
+  return streak;
+}
+
+/* ---------- Ranking de tópicos mais errados ---------- */
+function topMissed(limit){
+  const all=[];
+  const subjectsForRanking = customTopics.length ? [...SUBJECTS, getCustomSubject()] : SUBJECTS;
+  subjectsForRanking.forEach(sub=>{
+    flattenLeaves(sub).forEach(l=>{
+      const st = getCardState(l.key);
+      if(st.lapses) all.push({sub, l, lapses:st.lapses});
+    });
+  });
+  all.sort((a,b)=>b.lapses-a.lapses);
+  return all.slice(0, limit);
+}
+
+function resetAllProgress(){
+  if(!confirm('Isso apaga todo o progresso de repetição espaçada salvo neste navegador. Continuar?')) return;
+  progress = {};
+  saveProgress();
+  flashState = {};
+  render();
+}
+function resetSubjectProgress(id){
+  if(!confirm('Reiniciar o progresso desta disciplina?')) return;
+  flattenLeaves(findSubject(id)).forEach(l=>{ delete progress[l.key]; });
+  saveProgress();
+  delete flashState[id];
+  initFlash(id);
+  render();
+}
+
+function findSubject(id){
+  if(id==='custom') return getCustomSubject();
+  return SUBJECTS.find(s=>s.id===id);
+}
+
+/* ---------- Meus Tópicos (importados pelo usuário) ---------- */
+const CUSTOM_KEY = 'issCaruaruCustom_v1';
+const CUSTOM_COLOR = '#5B6B7A';
+let customTopics = [];
+try{
+  const rawCustom = localStorage.getItem(CUSTOM_KEY);
+  customTopics = rawCustom ? JSON.parse(rawCustom) : [];
+}catch(e){}
+function saveCustom(){
+  try{ localStorage.setItem(CUSTOM_KEY, JSON.stringify(customTopics)); }catch(e){}
+}
+function getCustomSubject(){
+  return {
+    id:'custom', nome:'Meus Tópicos', selo:'MT', cor:CUSTOM_COLOR,
+    tagline:'Conteúdo que você importou — cole resumos e gere seus próprios cartões.',
+    topicos: customTopics
+  };
+}
+function escapeHtml(s){
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+function questionsUrl(title, banca){
+  const clean = title.replace(/^[\d.\-]+\s*/,''); // remove numeração do edital, ex.: "4.2.6 "
+  const q = encodeURIComponent(clean);
+  const bancaParam = banca ? `&banca=${banca}` : '';
+  return `https://questoes.grancursosonline.com.br/aluno/filtro/concursos?resolucao=NAORESOLVI${bancaParam}&desatualizada=0&anulada=0&query=${q}`;
+}
+function parseImportText(text){
+  const blocks = String(text).split(/\n(?=#\s)/).map(b=>b.trim()).filter(Boolean);
+  const topics = [];
+  blocks.forEach(block=>{
+    const lines = block.split('\n').map(l=>l.trim()).filter(l=>l.length>0);
+    if(lines.length===0 || !lines[0].startsWith('#')) return;
+    const title = lines[0].replace(/^#\s*/,'').trim();
+    if(!title) return;
+    const defLines = [];
+    let pegadinha = '';
+    const subs = [];
+    for(let i=1;i<lines.length;i++){
+      const line = lines[i];
+      if(line.startsWith('!')){
+        pegadinha += (pegadinha ? ' ' : '') + line.replace(/^!\s*/,'').trim();
+      } else if(line.startsWith('-')){
+        const raw = line.replace(/^-\s*/,'');
+        const parts = raw.split('::');
+        if(parts.length>=2){
+          subs.push({t:parts[0].trim(), d:parts.slice(1).join('::').trim()});
+        } else if(raw.trim()){
+          subs.push({t:`Sub-ramo ${subs.length+1}`, d:raw.trim()});
+        }
+      } else {
+        defLines.push(line);
+      }
+    }
+    const d = defLines.join(' ').trim() || title;
+    if(subs.length===0) subs.push({t:title, d:d});
+    topics.push({t:title, d, pegadinha: pegadinha || 'Nenhuma pegadinha cadastrada para este tópico.', subs});
+  });
+  return topics;
+}
+let importDraft = '';
+let lastImportMsg = null;
+function openImport(){ state.view='import'; render(); }
+function doImport(){
+  const parsed = parseImportText(importDraft);
+  if(parsed.length===0){
+    lastImportMsg = {text:'Não encontrei nenhum tópico válido. Confira se cada bloco começa com "# Título".', ok:false};
+  } else {
+    customTopics = customTopics.concat(parsed);
+    saveCustom();
+    lastImportMsg = {text:`${parsed.length} tópico(s) importado(s) com sucesso.`, ok:true};
+    importDraft = '';
+  }
+  render();
+}
+function deleteCustomTopic(i){
+  if(!confirm('Remover este tópico importado? Isso também reinicia o progresso salvo de "Meus Tópicos".')) return;
+  customTopics.splice(i,1);
+  saveCustom();
+  Object.keys(progress).forEach(k=>{ if(k.startsWith('custom:')) delete progress[k]; });
+  saveProgress();
+  delete flashState['custom'];
+  render();
+}
+
+function goHome(){ state = {view:'home', subjectId:null, topicIdx:null, mode:'map'}; render(); }
+function openSubject(id){ state = {view:'subject', subjectId:id, topicIdx:null, mode:'map'}; render(); }
+function openSubmap(ti){ state.view='submap'; state.topicIdx=ti; render(); }
+function backToSubject(){ state.view='subject'; state.topicIdx=null; state.mode='map'; render(); }
+function setMode(mode){
+  state.mode = mode;
+  if(mode==='flash' && !flashState[state.subjectId]) initFlash(state.subjectId);
+  render();
+}
+
+function flattenLeaves(sub){
+  const out=[];
+  sub.topicos.forEach((top,ti)=>top.subs.forEach((s,si)=>out.push({ti,si,parent:top.t,t:s.t,d:s.d,key:cardKey(sub.id,ti,si)})));
+  return out;
+}
+
+function initFlash(id, forceAll){
+  const sub = findSubject(id);
+  const leaves = flattenLeaves(sub);
+  const now = Date.now();
+  let pool = forceAll ? leaves.slice() : leaves.filter(l=>getCardState(l.key).due<=now);
+  shuffleArr(pool);
+  pool.sort((a,b)=>getCardState(a.key).box - getCardState(b.key).box); // caixas mais fracas primeiro
+  flashState[id] = {
+    queue: pool.map(l=>l.key),
+    pos:0, know:0, review:0,
+    done: pool.length===0,
+    empty: pool.length===0 && !forceAll,
+  };
+}
+function shuffleArr(arr){
+  for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; }
+}
+
+function render(){
+  let rightHtml = '';
+  if(state.view==='submap'){
+    rightHtml += `<button class="back-btn" onclick="backToSubject()">← ${findSubject(state.subjectId).nome}</button>`;
+  }
+  rightHtml += `<button class="back-btn" onclick="goHome()">📚 Disciplinas</button>`;
+  rightHtml += `<button class="back-btn" onclick="window.location.href='index.html'">🏠 Central</button>`;
+  rightHtml += pomodoroNavHtml();
+  if(state.view!=='stats'){
+    rightHtml += `<button class="back-btn" onclick="openStats()">📊 Estatísticas</button>`;
+  }
+  if(state.view!=='import'){
+    rightHtml += `<button class="back-btn" onclick="openImport()">⬆️ Importar</button>`;
+  }
+  navRight.innerHTML = rightHtml;
+
+  if(state.view==='home'){ renderHome(); return; }
+  if(state.view==='stats'){ renderStats(); return; }
+  if(state.view==='import'){ renderImport(); return; }
+  const sub = findSubject(state.subjectId);
+  if(state.view==='submap'){ renderSubmap(sub, state.topicIdx); return; }
+  if(state.mode==='map') renderMap(sub); else renderFlash(sub);
+}
+function openStats(){ state.view='stats'; render(); }
+
+function renderStats(){
+  const streak = computeStreak();
+  const totalDaysStudied = studyDays.size;
+  let totalMastered=0, totalCards=0;
+  const subjectsForStats = customTopics.length ? [...SUBJECTS, getCustomSubject()] : SUBJECTS;
+  const perSubject = subjectsForStats.map(s=>{
+    const st = subjectStats(s);
+    totalMastered += st.mastered; totalCards += st.total;
+    return {sub:s, ...st};
+  });
+  const overallPct = totalCards ? Math.round((totalMastered/totalCards)*100) : 0;
+  const missed = topMissed(8);
+
+  app.innerHTML = `
+    <div class="subject-head">
+      <div class="seal" style="background:${'#141B2E'}">📊</div>
+      <div>
+        <h2>Estatísticas de estudo</h2>
+        <div class="count">Baseado no progresso salvo neste navegador</div>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stats-card">
+        <div class="stats-big">${streak}</div>
+        <div class="stats-label">${streak===1 ? 'dia seguido estudando' : 'dias seguidos estudando'}</div>
+      </div>
+      <div class="stats-card">
+        <div class="stats-big">${overallPct}%</div>
+        <div class="stats-label">domínio geral (${totalMastered}/${totalCards} cartões)</div>
+      </div>
+      <div class="stats-card">
+        <div class="stats-big">${totalDaysStudied}</div>
+        <div class="stats-label">dias totais de estudo registrados</div>
+      </div>
+    </div>
+
+    <h3 style="margin:34px 0 14px;font-size:18px;">Domínio por disciplina</h3>
+    <div class="bar-list">
+      ${perSubject.map(p=>{
+        const pct = p.total ? Math.round((p.mastered/p.total)*100) : 0;
+        return `<div class="bar-row">
+          <span class="bar-label">${p.sub.nome}</span>
+          <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${p.sub.cor}"></div></div>
+          <span class="bar-pct mono">${pct}%</span>
+        </div>`;
+      }).join('')}
+    </div>
+
+    <h3 style="margin:34px 0 14px;font-size:18px;">Tópicos que mais pedem revisão</h3>
+    ${missed.length===0 ? `<p style="color:var(--ink-soft);font-size:13.5px;">Ainda não há dados suficientes — os tópicos com mais "A revisar" aparecerão aqui conforme você usa o modo flashcard.</p>` : `
+    <div class="miss-table">
+      ${missed.map(m=>`
+        <div class="miss-row">
+          <span class="miss-seal" style="background:${m.sub.cor}">${m.sub.selo}</span>
+          <div class="miss-info">
+            <div class="miss-term">${m.l.t}</div>
+            <div class="miss-parent">${m.sub.nome} · ${m.l.parent}</div>
+          </div>
+          <span class="miss-count">${m.lapses}×</span>
+        </div>
+      `).join('')}
+    </div>`}
+  `;
+}
+
+function renderImport(){
+  const msg = lastImportMsg;
+  app.innerHTML = `
+    <div class="subject-head">
+      <div class="seal" style="background:${CUSTOM_COLOR}">MT</div>
+      <div>
+        <h2>Importar conteúdo</h2>
+        <div class="count">Cole um resumo no formato abaixo para gerar novos ramos de mapa e flashcards</div>
+      </div>
+    </div>
+    <div class="import-guide">
+      Cada tópico começa com <code>#</code>. Linhas com <code>-</code> viram sub-ramos (flashcards); use <code>::</code> para separar termo e definição. Uma linha com <code>!</code> vira a pegadinha de prova.
+      <pre class="import-example"># Nome do tópico
+Definição resumida do tópico principal.
+! Pegadinha de prova (opcional)
+- Sub-ramo 1 :: definição do sub-ramo 1
+- Sub-ramo 2 :: definição do sub-ramo 2
+- Sub-ramo 3 :: definição do sub-ramo 3</pre>
+    </div>
+    <textarea id="importText" class="import-textarea" oninput="importDraft=this.value" placeholder="Cole aqui o conteúdo formatado...">${escapeHtml(importDraft)}</textarea>
+    ${msg ? `<div class="import-msg" style="color:${msg.ok?'var(--accent)':'var(--crimson)'}">${msg.text}</div>` : '<div class="import-msg"></div>'}
+    <div class="flash-controls" style="justify-content:flex-start;">
+      <button class="fbtn primary" onclick="doImport()">Importar tópicos</button>
+    </div>
+
+    <h3 style="margin:34px 0 14px;font-size:18px;">Meus tópicos importados (${customTopics.length})</h3>
+    ${customTopics.length===0 ? `<p style="color:var(--ink-soft);font-size:13.5px;">Nenhum tópico importado ainda — cole um resumo acima para começar.</p>` : `
+      <div class="miss-table">
+        ${customTopics.map((t,i)=>`
+          <div class="miss-row">
+            <span class="miss-seal" style="background:${CUSTOM_COLOR}">MT</span>
+            <div class="miss-info">
+              <div class="miss-term">${t.t}</div>
+              <div class="miss-parent">${t.subs.length} sub-ramo${t.subs.length===1?'':'s'}</div>
+            </div>
+            <button class="fbtn review" style="padding:6px 12px;font-size:12px;" onclick="deleteCustomTopic(${i})">Remover</button>
+          </div>
+        `).join('')}
+      </div>
+      <div style="margin-top:18px;"><button class="fbtn" onclick="openSubject('custom')">Abrir mapa de Meus Tópicos →</button></div>
+    `}
+  `;
+}
+
+function subjectCardHtml(s){
+  const stats = subjectStats(s);
+  const pct = stats.total ? Math.round((stats.mastered/stats.total)*100) : 0;
+  return `
+    <button class="seal-card" style="--card-accent:${s.cor}" onclick="openSubject('${s.id}')">
+      <div class="seal-top">
+        <div class="seal" style="background:${s.cor}">${s.selo}</div>
+        <div>
+          <h3>${s.nome}</h3>
+          <div class="count">${s.topicos.length} ramos · ${stats.total} flashcards</div>
+        </div>
+      </div>
+      <p class="tagline">${s.tagline}</p>
+      <div class="mastery-row">
+        <div class="mastery-track"><div class="mastery-fill" style="width:${pct}%;background:${s.cor}"></div></div>
+        <span class="mastery-label">${stats.mastered}/${stats.total} dominados</span>
+      </div>
+      <div class="enter-row">
+        <span class="go" style="color:${s.cor}">Abrir mapa →</span>
+        ${stats.due>0 ? `<span class="due-badge">${stats.due} p/ hoje</span>` : `<span class="mono" style="color:var(--ink-soft)">${s.selo}</span>`}
+      </div>
+    </button>
+  `;
+}
+
+function renderHome(){
+  const totalLeaf = SUBJECTS.reduce((n,s)=>n+flattenLeaves(s).length,0);
+  const totalTopics = SUBJECTS.reduce((n,s)=>n+s.topicos.length,0);
+  const streak = computeStreak();
+  const subjectsForLive = customTopics.length ? [...SUBJECTS, getCustomSubject()] : SUBJECTS;
+  let liveMastered=0, liveTotal=0, liveDue=0;
+  subjectsForLive.forEach(s=>{ const st=subjectStats(s); liveMastered+=st.mastered; liveTotal+=st.total; liveDue+=st.due; });
+  const livePct = liveTotal ? Math.round((liveMastered/liveTotal)*100) : 0;
+
+  const diasProva = daysUntil(EXAM_DATE);
+  const diasIsencao = daysUntil(ISENCAO_END);
+  const diasInscricao = daysUntil(INSCR_END);
+  let prazoPillHtml = '';
+  if(diasIsencao>=0){
+    prazoPillHtml = `<div class="live-pill"><span class="dot" style="background:var(--brass)"></span><b>${diasIsencao}</b> ${diasIsencao===1?'dia':'dias'} p/ pedir isenção</div>`;
+  } else if(diasInscricao>=0){
+    prazoPillHtml = `<div class="live-pill"><span class="dot" style="background:var(--brass)"></span><b>${diasInscricao}</b> ${diasInscricao===1?'dia':'dias'} p/ se inscrever</div>`;
+  }
+
+  app.innerHTML = `
+    <section class="hero">
+      <svg class="hero-watermark" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="92" fill="none" stroke="#141B2E" stroke-width="0.6"/>
+        <circle cx="100" cy="100" r="78" fill="none" stroke="#141B2E" stroke-width="0.6"/>
+        <circle cx="100" cy="100" r="64" fill="none" stroke="#141B2E" stroke-width="1.2"/>
+        ${Array.from({length:24}).map((_,i)=>{
+          const a = (i/24)*Math.PI*2;
+          const x1 = 100+Math.cos(a)*66, y1 = 100+Math.sin(a)*66;
+          const x2 = 100+Math.cos(a)*90, y2 = 100+Math.sin(a)*90;
+          return `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#141B2E" stroke-width="0.5"/>`;
+        }).join('')}
+        <text x="100" y="107" text-anchor="middle" font-family="Fraunces, serif" font-weight="680" font-size="30" fill="#141B2E">AF-TI</text>
+      </svg>
+      <div class="eyebrow">Edital 01/2026 · Analista Fiscal Municipal — TI</div>
+      <h1>Sua rota para o <em>1º lugar</em> em Caruaru.</h1>
+      <p>Cinco disciplinas do edital, cada uma com mapa mental e pegadinha de prova. Revise no modo flashcard com repetição espaçada — é aqui que você entra todo dia, antes das 120 questões e das 2 redações.</p>
+      <div class="stat-row">
+        <div class="stat"><b>${SUBJECTS.length}</b><span>Disciplinas</span></div>
+        <div class="stat"><b>${totalTopics}</b><span>Ramos principais</span></div>
+        <div class="stat"><b>${totalLeaf}</b><span>Flashcards</span></div>
+      </div>
+      <div class="live-strip">
+        <div class="live-pill"><span class="dot" style="background:var(--brass)"></span>${streak>0 ? `<b>${streak}</b> ${streak===1?'dia seguido':'dias seguidos'}` : 'Comece sua sequência hoje'}</div>
+        <div class="live-pill"><span class="dot" style="background:var(--accent)"></span><b>${livePct}%</b> de domínio geral</div>
+        ${liveDue>0 ? `<div class="live-pill"><span class="dot" style="background:var(--crimson)"></span><b>${liveDue}</b> cartões para hoje</div>` : ''}
+        ${prazoPillHtml}
+        <div class="live-pill"><span class="dot" style="background:var(--ink)"></span><b>${diasProva>=0?diasProva:0}</b> ${diasProva===1?'dia até a prova':'dias até a prova'} · 29/11</div>
+      </div>
+    </section>
+
+    <div class="plan-card">
+      <div class="plan-card-head">
+        <span class="plan-tag">Seu plano de hoje</span>
+        <span class="plan-exam">Analista Fiscal Municipal — TI · Prova 29/11/2026</span>
+      </div>
+      <div class="plan-grid">
+        <div class="plan-item" style="--pc:${SUBJECTS[0] ? SUBJECTS[0].cor : ''}"><b>80</b><span>questões<br>Conhec. Específicos</span></div>
+        <div class="plan-item" style="--pc:${SUBJECTS[2] ? SUBJECTS[2].cor : ''}"><b>25</b><span>questões<br>Português</span></div>
+        <div class="plan-item" style="--pc:${SUBJECTS[3] ? SUBJECTS[3].cor : ''}"><b>8</b><span>questões<br>Raciocínio Lógico</span></div>
+        <div class="plan-item" style="--pc:${SUBJECTS[4] ? SUBJECTS[4].cor : ''}"><b>7</b><span>questões<br>Informática</span></div>
+        <div class="plan-item" style="--pc:var(--crimson)"><b>2</b><span>redações<br>25 a 30 linhas</span></div>
+      </div>
+      <div class="plan-deadline">Errou ou ficou em dúvida → cai automaticamente na fila de revisão dos flashcards abaixo. ${diasIsencao>=0 ? `<b>Isenção da taxa: peça até ${diasIsencao} ${diasIsencao===1?'dia':'dias'}.</b>` : (diasInscricao>=0 ? `<b>Inscrição aberta: faltam ${diasInscricao} ${diasInscricao===1?'dia':'dias'}.</b>` : '')}</div>
+    </div>
+
+    <div class="section-label">Edital 01/2026 — Analista Fiscal Municipal (TI)</div>
+    <div class="seal-grid">
+      ${SUBJECTS.map(subjectCardHtml).join('')}
+      ${renderCustomTile()}
+    </div>
+  `;
+}
+
+function renderCustomTile(){
+  const sub = getCustomSubject();
+  const stats = subjectStats(sub);
+  const pct = stats.total ? Math.round((stats.mastered/stats.total)*100) : 0;
+  if(customTopics.length===0){
+    return `
+      <button class="seal-card" style="--card-accent:${CUSTOM_COLOR}; border-style:dashed;" onclick="openImport()">
+        <div class="seal-top">
+          <div class="seal" style="background:${CUSTOM_COLOR}">MT</div>
+          <div>
+            <h3>${sub.nome}</h3>
+            <div class="count">0 tópicos · cole seu resumo</div>
+          </div>
+        </div>
+        <p class="tagline">${sub.tagline}</p>
+        <div class="enter-row"><span class="go" style="color:${CUSTOM_COLOR}">+ Importar conteúdo →</span></div>
+      </button>`;
+  }
+  return `
+    <button class="seal-card" style="--card-accent:${CUSTOM_COLOR}; border-style:dashed;" onclick="openSubject('custom')">
+      <div class="seal-top">
+        <div class="seal" style="background:${CUSTOM_COLOR}">MT</div>
+        <div>
+          <h3>${sub.nome}</h3>
+          <div class="count">${customTopics.length} tópicos · ${stats.total} flashcards</div>
+        </div>
+      </div>
+      <p class="tagline">${sub.tagline}</p>
+      <div class="mastery-row">
+        <div class="mastery-track"><div class="mastery-fill" style="width:${pct}%;background:${CUSTOM_COLOR}"></div></div>
+        <span class="mastery-label">${stats.mastered}/${stats.total} dominados</span>
+      </div>
+      <div class="enter-row">
+        <span class="go" style="color:${CUSTOM_COLOR}">Abrir mapa →</span>
+        <span class="mono" style="color:var(--ink-soft)">MT</span>
+      </div>
+    </button>`;
+}
+
+function mindMapHtml(centerLabel, color, items, cardBuilder){
+  const n = items.length;
+  const nodeW = 190, minGap = 34, startR = 82, pad = 120;
+  const R = Math.max(200, Math.ceil((nodeW+minGap) / (2*Math.sin(Math.PI/n))));
+  const world = Math.round(R*2 + nodeW + pad*2);
+  const cx = world/2, cy = world/2;
+
+  let nodesHtml = '', linesHtml = '';
+  items.forEach((item,i)=>{
+    const angle = -Math.PI/2 + i*(2*Math.PI/n);
+    const x = cx + Math.cos(angle)*R;
+    const y = cy + Math.sin(angle)*R;
+    const sx = cx + Math.cos(angle)*startR;
+    const sy = cy + Math.sin(angle)*startR;
+    linesHtml += `<line x1="${sx.toFixed(1)}" y1="${sy.toFixed(1)}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="${color}" stroke-width="1.5" stroke-opacity="0.42"/>`;
+    nodesHtml += cardBuilder(item, i, x, y);
+  });
+
+  return `
+    <div class="map-viewport" id="mapViewport">
+      <button class="map-recenter" onclick="centerMap()" title="Centralizar mapa">◎ Centralizar</button>
+      <div class="map-hint">arraste para circular pelo mapa</div>
+      <div class="map-world" id="mapWorld" style="width:${world}px;height:${world}px;">
+        <svg class="connector-svg" width="${world}" height="${world}">
+          <circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="#141B2E" stroke-width="1" stroke-dasharray="2 8" opacity="0.1"/>
+          ${linesHtml}
+        </svg>
+        <div class="center-node" style="background:${color}; left:${cx}px; top:${cy}px;">${centerLabel}</div>
+        ${nodesHtml}
+      </div>
+    </div>`;
+}
+
+function initMapPan(){
+  const viewport = document.getElementById('mapViewport');
+  const worldEl = document.getElementById('mapWorld');
+  if(!viewport || !worldEl) return;
+  const world = parseFloat(worldEl.style.width);
+  let panX=0, panY=0, dragging=false, moved=false, startX=0, startY=0;
+
+  function apply(){ worldEl.style.transform = `translate(${panX}px, ${panY}px)`; }
+  function center(){
+    panX = viewport.clientWidth/2 - world/2;
+    panY = viewport.clientHeight/2 - world/2;
+    apply();
+  }
+  viewport.onpointerdown = (e)=>{
+    if(e.target.closest('.node-card')) return;
+    dragging = true; moved = false;
+    startX = e.clientX - panX; startY = e.clientY - panY;
+    viewport.classList.add('grabbing');
+    try{ viewport.setPointerCapture(e.pointerId); }catch(err){}
+  };
+  viewport.onpointermove = (e)=>{
+    if(!dragging) return;
+    const nx = e.clientX - startX, ny = e.clientY - startY;
+    if(Math.abs(nx-panX)>3 || Math.abs(ny-panY)>3) moved = true;
+    panX = nx; panY = ny;
+    apply();
+  };
+  function endDrag(){
+    if(!dragging) return;
+    dragging = false;
+    viewport.classList.remove('grabbing');
+  }
+  viewport.onpointerup = endDrag;
+  viewport.onpointerleave = endDrag;
+  viewport.onpointercancel = endDrag;
+  worldEl.addEventListener('click', (e)=>{
+    if(moved){ e.stopPropagation(); moved = false; }
+  }, true);
+  center();
+  window.__mapCenter = center;
+}
+function centerMap(){ if(window.__mapCenter) window.__mapCenter(); }
+
+function renderMap(sub){
+  const mapHtml = mindMapHtml(sub.nome, sub.cor, sub.topicos, (top,i,x,y)=>`
+    <div class="node-card" data-i="${i}" style="left:${x}px; top:${y}px;" onclick="this.classList.toggle('flipped')">
+      <div class="card-inner">
+        <div class="card-face card-front" style="border-top:3px solid ${sub.cor}">
+          ${top.t}
+          <span class="flip-hint">virar ↻</span>
+        </div>
+        <div class="card-face card-back">
+          <div>${top.d}</div>
+          <div class="trap"><b>Pegadinha</b>${top.pegadinha}</div>
+          <div class="card-actions">
+            <button class="drill-btn" onclick="event.stopPropagation(); openSubmap(${i})">Ver ${top.subs.length} sub-ramos →</button>
+            <a class="quest-link" href="${questionsUrl(top.t, sub.banca)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">📝 Questões</a>
+          </div>
+        </div>
+      </div>
+    </div>`);
+
+  app.innerHTML = `
+    <div class="subject-head">
+      <div class="seal" style="background:${sub.cor}">${sub.selo}</div>
+      <div>
+        <h2>${sub.nome}</h2>
+        <div class="count">${sub.topicos.length} ramos · arraste o mapa e vire os cartões</div>
+      </div>
+      <div class="mode-toggle">
+        <button class="active" onclick="setMode('map')">Mapa mental</button>
+        <button onclick="setMode('flash')">Flashcards</button>
+      </div>
+    </div>
+    ${mapHtml}
+  `;
+  requestAnimationFrame(initMapPan);
+}
+
+function renderSubmap(sub, ti){
+  const top = sub.topicos[ti];
+  const mapHtml = mindMapHtml(top.t, sub.cor, top.subs, (s,i,x,y)=>`
+    <div class="node-card leaf" data-i="${i}" style="left:${x}px; top:${y}px;" onclick="this.classList.toggle('flipped')">
+      <div class="card-inner">
+        <div class="card-face card-front" style="border-top:3px solid ${sub.cor}">
+          ${s.t}
+          <span class="flip-hint">virar ↻</span>
+        </div>
+        <div class="card-face card-back">
+          <div>${s.d}</div>
+          <a class="quest-link" href="${questionsUrl(top.t+' '+s.t, sub.banca)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">📝 Questões</a>
+        </div>
+      </div>
+    </div>`);
+
+  app.innerHTML = `
+    <div class="crumbs">${sub.nome} <button onclick="backToSubject()">›</button> ${top.t}</div>
+    <div class="subject-head">
+      <div class="seal" style="background:${sub.cor}">${sub.selo}</div>
+      <div>
+        <h2>${top.t}</h2>
+        <div class="count">${top.subs.length} sub-ramos deste tópico</div>
+      </div>
+    </div>
+    ${mapHtml}
+  `;
+  requestAnimationFrame(initMapPan);
+}
+
+function renderFlash(sub){
+  const fs = flashState[sub.id];
+  const leaves = flattenLeaves(sub);
+  const stats = subjectStats(sub);
+  const headHtml = `
+    <div class="subject-head">
+      <div class="seal" style="background:${sub.cor}">${sub.selo}</div>
+      <div>
+        <h2>${sub.nome}</h2>
+        <div class="count">Modo flashcard · repetição espaçada · ${stats.mastered}/${stats.total} dominados</div>
+      </div>
+      <div class="mode-toggle">
+        <button onclick="setMode('map')">Mapa mental</button>
+        <button class="active" onclick="setMode('flash')">Flashcards</button>
+      </div>
+    </div>`;
+
+  if(fs.empty){
+    app.innerHTML = headHtml + `
+      <div class="flash-wrap">
+        <div class="deck-done">
+          <h3>Tudo em dia por aqui ✅</h3>
+          <p>Nenhum cartão está vencido para revisão hoje. ${stats.mastered} de ${stats.total} já estão no nível máximo de domínio.</p>
+          <button class="fbtn primary" onclick="restartFlash('${sub.id}')">Revisar mesmo assim</button>
+        </div>
+      </div>`;
+    return;
+  }
+
+  if(fs.done){
+    app.innerHTML = headHtml + `
+      <div class="flash-wrap">
+        <div class="deck-done">
+          <h3>Sessão concluída</h3>
+          <p>Sei: <b>${fs.know}</b> · A revisar: <b>${fs.review}</b>. Os prazos de revisão foram atualizados — volte quando vencerem.</p>
+          <button class="fbtn primary" onclick="restartFlash('${sub.id}')">Revisar tudo de novo</button>
+          <div style="margin-top:14px;"><button class="fbtn" onclick="resetSubjectProgress('${sub.id}')" style="font-size:12px;">Reiniciar progresso desta disciplina</button></div>
+        </div>
+      </div>`;
+    return;
+  }
+
+  const key = fs.queue[fs.pos];
+  const leaf = leaves.find(l=>l.key===key);
+  const st = getCardState(key);
+  const pct = Math.round((fs.pos/fs.queue.length)*100);
+
+  app.innerHTML = headHtml + `
+    <div class="flash-wrap">
+      <div class="flash-progress">
+        <span class="mono">${fs.pos+1} / ${fs.queue.length}</span>
+        <div class="track"><div class="track-fill" style="width:${pct}%;background:${sub.cor}"></div></div>
+        <span class="mono" title="nível de repetição">caixa ${st.box}/5</span>
+      </div>
+      <div class="flash-card" id="flashCard" onclick="this.classList.toggle('flipped')">
+        <div class="card-inner">
+          <div class="card-face card-front" style="border-top:4px solid ${sub.cor}">
+            <div class="flash-eyebrow flash-eyebrow-link" onclick="event.stopPropagation(); openSubmap(${leaf.ti})" title="Ver no mapa mental">${leaf.parent} ↗</div>
+            ${leaf.t}
+          </div>
+          <div class="card-face card-back">${leaf.d}</div>
+        </div>
+      </div>
+      <div class="tap-hint">toque no cartão para revelar a resposta</div>
+      <div class="flash-controls">
+        <button class="fbtn review" onclick="answerFlash('${sub.id}', false)">A revisar</button>
+        <button class="fbtn know" onclick="answerFlash('${sub.id}', true)">Sei</button>
+      </div>
+      <div class="session-tally">
+        <span>Sei: <b>${fs.know}</b></span>
+        <span>A revisar: <b>${fs.review}</b></span>
+        <span>Restam: <b>${fs.queue.length - fs.pos - 1}</b></span>
+      </div>
+    </div>`;
+}
+
+function answerFlash(id, knew){
+  const fs = flashState[id];
+  const key = fs.queue[fs.pos];
+  const st = getCardState(key);
+  const now = Date.now();
+  if(knew){
+    st.box = Math.min((st.box||0)+1, 5);
+    st.due = now + BOX_DAYS[st.box]*86400000;
+    st.reps = (st.reps||0)+1;
+    fs.know++;
+  } else {
+    st.box = 1;
+    st.due = now + BOX_DAYS[1]*86400000;
+    st.reps = (st.reps||0)+1;
+    st.lapses = (st.lapses||0)+1;
+    fs.review++;
+    const insertAt = Math.min(fs.pos + 3, fs.queue.length);
+    fs.queue.splice(insertAt, 0, key);
+  }
+  setCardState(key, st);
+  logStudyToday();
+  fs.pos++;
+  if(fs.pos >= fs.queue.length){ fs.done = true; }
+  render();
+}
+function restartFlash(id){ initFlash(id, true); render(); }
+
+/* ---------- Pomodoro ---------- */
+let pomo = { mode:'focus', focusMin:25, breakMin:5, remaining:25*60, running:false, open:false, interval:null };
+
+function formatPomoTime(sec){
+  const m = Math.floor(sec/60).toString().padStart(2,'0');
+  const s = (sec%60).toString().padStart(2,'0');
+  return `${m}:${s}`;
+}
+function pomodoroNavHtml(){
+  return `
+  <div class="pomo-nav${pomo.open ? ' open' : ''}" id="pomodoroWidget">
+    <button class="back-btn pomo-trigger" onclick="togglePomodoroCollapse()">
+      <span class="pomo-dot" id="pomoDot"></span><span id="pomoTime">${formatPomoTime(pomo.remaining)}</span> ⏱
+    </button>
+    <div class="pomo-dropdown" id="pomoBody">
+      <div class="pomo-label-row">Pomodoro · <span id="pomoLabel">${pomo.mode==='focus' ? 'Foco' : 'Pausa'}</span></div>
+      <div class="pomo-controls">
+        <button class="pomo-btn primary" id="pomoPlayBtn" onclick="pomodoroToggle()">${pomo.running ? '⏸ Pausar' : '▶ Iniciar'}</button>
+        <button class="pomo-btn" onclick="pomodoroReset()" title="Reiniciar">↺</button>
+        <button class="pomo-btn" onclick="pomodoroSkip()" title="Pular para o próximo">⏭</button>
+      </div>
+      <div class="pomo-settings">
+        <div class="pomo-setting-row">
+          <span>Foco</span>
+          <button onclick="pomodoroAdjust('focus',-5)">−</button>
+          <span class="mono" id="pomoFocusMin">${pomo.focusMin}</span>min
+          <button onclick="pomodoroAdjust('focus',5)">+</button>
+        </div>
+        <div class="pomo-setting-row">
+          <span>Pausa</span>
+          <button onclick="pomodoroAdjust('break',-1)">−</button>
+          <span class="mono" id="pomoBreakMin">${pomo.breakMin}</span>min
+          <button onclick="pomodoroAdjust('break',1)">+</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+function pomodoroRenderTime(){
+  const timeEl = document.getElementById('pomoTime');
+  if(timeEl) timeEl.textContent = formatPomoTime(pomo.remaining);
+  const labelEl = document.getElementById('pomoLabel');
+  if(labelEl) labelEl.textContent = pomo.mode==='focus' ? 'Foco' : 'Pausa';
+  const dot = document.getElementById('pomoDot');
+  if(dot) dot.style.background = !pomo.running ? '#9aa1ad' : (pomo.mode==='focus' ? 'var(--accent)' : 'var(--brass)');
+  const playBtn = document.getElementById('pomoPlayBtn');
+  if(playBtn) playBtn.textContent = pomo.running ? '⏸ Pausar' : '▶ Iniciar';
+  const focusMinEl = document.getElementById('pomoFocusMin');
+  if(focusMinEl) focusMinEl.textContent = pomo.focusMin;
+  const breakMinEl = document.getElementById('pomoBreakMin');
+  if(breakMinEl) breakMinEl.textContent = pomo.breakMin;
+}
+function pomodoroTick(){
+  if(pomo.remaining>0){
+    pomo.remaining--;
+  } else {
+    pomodoroBeep();
+    pomo.mode = pomo.mode==='focus' ? 'break' : 'focus';
+    pomo.remaining = (pomo.mode==='focus' ? pomo.focusMin : pomo.breakMin)*60;
+  }
+  pomodoroRenderTime();
+}
+function pomodoroToggle(){
+  pomo.running = !pomo.running;
+  if(pomo.running){
+    pomo.interval = setInterval(pomodoroTick, 1000);
+  } else {
+    clearInterval(pomo.interval);
+  }
+  pomodoroRenderTime();
+}
+function pomodoroReset(){
+  clearInterval(pomo.interval);
+  pomo.running = false;
+  pomo.mode = 'focus';
+  pomo.remaining = pomo.focusMin*60;
+  pomodoroRenderTime();
+}
+function pomodoroSkip(){
+  pomo.mode = pomo.mode==='focus' ? 'break' : 'focus';
+  pomo.remaining = (pomo.mode==='focus' ? pomo.focusMin : pomo.breakMin)*60;
+  pomodoroRenderTime();
+}
+function pomodoroAdjust(which, delta){
+  if(which==='focus'){
+    pomo.focusMin = Math.max(5, Math.min(90, pomo.focusMin+delta));
+    if(pomo.mode==='focus' && !pomo.running) pomo.remaining = pomo.focusMin*60;
+  } else {
+    pomo.breakMin = Math.max(1, Math.min(30, pomo.breakMin+delta));
+    if(pomo.mode==='break' && !pomo.running) pomo.remaining = pomo.breakMin*60;
+  }
+  pomodoroRenderTime();
+}
+function togglePomodoroCollapse(){
+  pomo.open = !pomo.open;
+  const w = document.getElementById('pomodoroWidget');
+  if(w) w.classList.toggle('open', pomo.open);
+}
+function pomodoroBeep(){
+  try{
+    const ctx = new (window.AudioContext||window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.frequency.value = 880;
+    gain.gain.setValueAtTime(0.15, ctx.currentTime);
+    osc.start();
+    osc.stop(ctx.currentTime+0.35);
+  }catch(e){}
+}
+
+function boot(){
+  try{
+    render();
+  }catch(err){
+    app.innerHTML = `<div style="max-width:520px;margin:60px auto;text-align:center;font-family:sans-serif;color:#9B3A34;">
+      <strong>Não foi possível carregar o mapa.</strong><br>
+      <span style="font-size:13px;color:#4A5570;">Erro técnico: ${String(err.message||err)}. Tente abrir este arquivo diretamente no navegador (não em uma pré-visualização embutida).</span>
+    </div>`;
+  }
+  try{ pomodoroRenderTime(); }catch(e){}
+}
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', boot);
+} else {
+  boot();
+}
+</script>
+
+</body>
+</html>
