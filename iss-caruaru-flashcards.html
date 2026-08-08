@@ -112,6 +112,11 @@
   }
   .live-pill b{ color:var(--ink); font-family:'IBM Plex Mono',monospace; font-size:13px; }
   .live-pill .dot{ width:7px; height:7px; border-radius:50%; flex:none; }
+  .live-pill-action{
+    background:var(--accent); border-color:var(--accent); color:#fff; font-weight:600;
+    transition: transform .1s ease, box-shadow .15s ease;
+  }
+  .live-pill-action:hover{ box-shadow:0 8px 18px -10px rgba(193,98,43,0.6); transform:translateY(-1px); }
 
   .section-label{
     display:flex; align-items:center; gap:12px; margin: 40px 0 18px;
@@ -212,6 +217,14 @@
     font-size:12px; line-height:1; padding:0; color:var(--ink);
   }
   .pomo-setting-row .mono{ min-width:16px; text-align:center; color:var(--ink); }
+  .pomo-sound-row{ margin-top:10px; padding-top:10px; border-top:1px solid var(--paper-line); }
+  .pomo-sound-label{ font-size:11.5px; color:var(--ink-soft); margin-bottom:6px; text-align:left; }
+  .pomo-sound-opts{ display:flex; gap:6px; }
+  .pomo-sound-btn{
+    flex:1; border:1px solid var(--paper-line); background:#FBF7EC; color:var(--ink-soft);
+    font-size:11px; padding:7px 4px; border-radius:10px; font-weight:600; text-align:center;
+  }
+  .pomo-sound-btn.active{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
   @media (max-width:640px){
     .pomo-dropdown{ right:auto; left:0; width:200px; }
   }
@@ -251,12 +264,26 @@
   .map-viewport.grabbing .node-card{ pointer-events:none; }
   .map-world{ position:absolute; top:0; left:0; }
   .map-recenter{
-    position:absolute; top:14px; right:14px; z-index:5;
     border:1px solid var(--paper-line); background:rgba(243,236,220,0.92); color:var(--ink);
     font-size:12px; font-weight:600; padding:7px 13px; border-radius:999px;
     backdrop-filter:blur(2px);
   }
   .map-recenter:hover{ background:#fff; }
+  .map-controls-tr{ position:absolute; top:14px; right:14px; z-index:5; display:flex; gap:8px; }
+  .map-fullscreen{
+    border:1px solid var(--paper-line); background:rgba(243,236,220,0.92); color:var(--ink);
+    font-size:12px; font-weight:600; padding:7px 13px; border-radius:999px;
+    backdrop-filter:blur(2px);
+  }
+  .map-fullscreen:hover{ background:#fff; }
+  .map-viewport:fullscreen, .map-viewport:-webkit-full-screen{ height:100vh; width:100vw; border-radius:0; }
+  .map-add{
+    position:absolute; top:14px; left:14px; z-index:5;
+    border:1px solid var(--accent); background:rgba(193,98,43,0.12); color:var(--accent);
+    font-size:12px; font-weight:600; padding:7px 13px; border-radius:999px;
+    backdrop-filter:blur(2px);
+  }
+  .map-add:hover{ background:var(--accent); color:#fff; }
   .map-hint{
     position:absolute; bottom:12px; left:14px; z-index:5;
     font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--ink-soft);
@@ -272,11 +299,36 @@
     box-shadow: inset 0 0 0 4px rgba(255,255,255,0.16), 0 10px 24px -12px rgba(0,0,0,0.4);
   }
   .node-card{ position:absolute; width:190px; height:196px; transform:translate(-50%,-50%); perspective:1000px; cursor:pointer; z-index:2; }
+
+  /* cartão achatado do nível 1 — clique já abre os ramos */
+  .node-flat-face{
+    position:absolute; inset:0; border-radius:12px; background:#FBF7EC; border:1px solid var(--paper-line);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:10px;
+    padding:16px; box-shadow:0 8px 18px -14px rgba(20,27,46,0.5); transition:box-shadow .15s ease, transform .15s ease;
+  }
+  .node-card:hover .node-flat-face{ box-shadow:0 14px 26px -14px rgba(20,27,46,0.55); transform:translateY(-2px); }
+  .node-flat-title{ font-family:'Fraunces',serif; font-weight:560; font-size:15.5px; line-height:1.32; }
+  .node-flat-hint{ font-size:10.5px; color:var(--ink-soft); font-family:'IBM Plex Mono',monospace; }
+  .node-flat-quest{
+    position:absolute; bottom:8px; right:9px; font-size:14px; text-decoration:none; z-index:3;
+    width:26px; height:26px; display:flex; align-items:center; justify-content:center;
+    border-radius:50%; background:rgba(255,255,255,0.75);
+  }
+  .node-flat-quest:hover{ background:#fff; }
+
+  /* resumo do tópico-pai, mostrado ao entrar no submapa */
+  .topic-brief{
+    background:var(--paper-2); border:1px solid var(--paper-line); border-left:4px solid var(--accent);
+    border-radius:var(--radius); padding:16px 20px; margin-bottom:16px; font-size:13.5px; line-height:1.6; color:var(--ink-soft);
+  }
+  .topic-brief p{ margin:0 0 10px; }
+  .topic-brief-trap{ font-size:11.8px; background:rgba(155,58,52,0.1); color:var(--crimson); border-radius:8px; padding:8px 10px; }
+  .topic-brief-trap b{ font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.06em; display:block; margin-bottom:3px; }
   .card-inner{
     position:relative; width:100%; height:100%; transition: transform .5s cubic-bezier(.2,.7,.3,1);
     transform-style:preserve-3d; border-radius:12px;
   }
-  .node-card.flipped .card-inner{ transform: rotateY(180deg); }
+  .node-card.flipped .card-inner, .flash-card.flipped .card-inner{ transform: rotateY(180deg); }
   .card-face{
     position:absolute; inset:0; backface-visibility:hidden; border-radius:12px;
     display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
@@ -339,6 +391,9 @@
   .fbtn.review{ background: var(--crimson); color:#fff; border-color:var(--crimson); }
   .session-tally{ display:flex; gap:18px; font-size:12.5px; color:var(--ink-soft); }
   .session-tally b{ color:var(--ink); }
+  .flash-meta-actions{ display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
+  .fbtn.ghost{ background:transparent; border:1px dashed var(--paper-line); font-size:11.5px; padding:6px 13px; color:var(--ink-soft); }
+  .fbtn.ghost:hover{ background:var(--paper-2); color:var(--ink); border-style:solid; }
   .deck-done{ text-align:center; max-width:420px; }
   .deck-done h3{ margin:0 0 8px; font-size:22px; }
   .deck-done p{ color:var(--ink-soft); font-size:14px; margin:0 0 18px; }
@@ -808,6 +863,75 @@ function findSubject(id){
   return SUBJECTS.find(s=>s.id===id);
 }
 
+/* ---------- Edição e adição de flashcards pelo usuário ---------- */
+const EDITS_KEY = 'issCaruaruEdits_v1';   // { "subjId:ti:si": {t,d} } — sobrescreve cartões nativos
+const ADDS_KEY  = 'issCaruaruAdds_v1';    // { "subjId:ti": [{t,d}, ...] } — cartões extras por tópico
+let savedEdits = {};
+let savedAdds = {};
+try{ savedEdits = JSON.parse(localStorage.getItem(EDITS_KEY) || '{}'); }catch(e){ savedEdits = {}; }
+try{ savedAdds = JSON.parse(localStorage.getItem(ADDS_KEY) || '{}'); }catch(e){ savedAdds = {}; }
+function saveEditsToDisk(){ try{ localStorage.setItem(EDITS_KEY, JSON.stringify(savedEdits)); }catch(e){} }
+function saveAddsToDisk(){ try{ localStorage.setItem(ADDS_KEY, JSON.stringify(savedAdds)); }catch(e){} }
+
+function applyUserCustomizations(){
+  Object.keys(savedEdits).forEach(key=>{
+    const parts = key.split(':'); const subId = parts[0], ti = +parts[1], si = +parts[2];
+    const sub = SUBJECTS.find(s=>s.id===subId);
+    if(sub && sub.topicos[ti] && sub.topicos[ti].subs[si]){
+      sub.topicos[ti].subs[si].t = savedEdits[key].t;
+      sub.topicos[ti].subs[si].d = savedEdits[key].d;
+    }
+  });
+  Object.keys(savedAdds).forEach(key=>{
+    const parts = key.split(':'); const subId = parts[0], ti = +parts[1];
+    const sub = SUBJECTS.find(s=>s.id===subId);
+    if(sub && sub.topicos[ti]){
+      savedAdds[key].forEach(item=>{
+        sub.topicos[ti].subs.push({t:item.t, d:item.d, userAdded:true});
+      });
+    }
+  });
+}
+applyUserCustomizations();
+
+function editLeaf(subId, ti, si){
+  const sub = findSubject(subId);
+  if(!sub || !sub.topicos[ti] || !sub.topicos[ti].subs[si]) return;
+  const leaf = sub.topicos[ti].subs[si];
+  const newT = prompt('Frente do cartão (o que aparece primeiro):', leaf.t);
+  if(newT===null) return;
+  const newD = prompt('Verso do cartão (resposta / explicação):', leaf.d);
+  if(newD===null) return;
+  leaf.t = newT.trim() || leaf.t;
+  leaf.d = newD.trim() || leaf.d;
+  if(subId==='custom'){
+    saveCustom();
+  } else {
+    savedEdits[subId+':'+ti+':'+si] = {t:leaf.t, d:leaf.d};
+    saveEditsToDisk();
+  }
+  render();
+}
+
+function addLeafPrompt(subId, ti){
+  const sub = findSubject(subId);
+  if(!sub || !sub.topicos[ti]) return;
+  const t = prompt('Frente do novo cartão (pergunta ou termo):');
+  if(t===null || !t.trim()) return;
+  const d = prompt('Verso do novo cartão (resposta ou definição):');
+  if(d===null || !d.trim()) return;
+  sub.topicos[ti].subs.push({t:t.trim(), d:d.trim(), userAdded:true});
+  if(subId==='custom'){
+    saveCustom();
+  } else {
+    const key = subId+':'+ti;
+    if(!savedAdds[key]) savedAdds[key] = [];
+    savedAdds[key].push({t:t.trim(), d:d.trim()});
+    saveAddsToDisk();
+  }
+  render();
+}
+
 /* ---------- Meus Tópicos (importados pelo usuário) ---------- */
 const CUSTOM_KEY = 'issCaruaruCustom_v1';
 const CUSTOM_COLOR = '#5B6B7A';
@@ -903,6 +1027,124 @@ function setMode(mode){
   render();
 }
 
+/* ---------- Revisão do dia (cartões vencidos de todas as disciplinas) ---------- */
+let todayState = null;
+function buildTodayPool(){
+  const now = Date.now();
+  const pool = [];
+  SUBJECTS.forEach(sub=>{
+    flattenLeaves(sub).forEach(l=>{
+      if(getCardState(l.key).due<=now){
+        pool.push({ti:l.ti, si:l.si, parent:l.parent, t:l.t, d:l.d, key:l.key, subId:sub.id, subNome:sub.nome, subCor:sub.cor, subSelo:sub.selo});
+      }
+    });
+  });
+  shuffleArr(pool);
+  pool.sort((a,b)=>getCardState(a.key).box - getCardState(b.key).box);
+  return pool;
+}
+function initToday(){
+  const items = buildTodayPool();
+  todayState = { items, pos:0, know:0, review:0, done: items.length===0 };
+}
+function openToday(){
+  initToday();
+  state = {view:'today', subjectId:null, topicIdx:null, mode:null};
+  render();
+}
+function restartToday(){ initToday(); render(); }
+function answerToday(knew){
+  const item = todayState.items[todayState.pos];
+  const st = getCardState(item.key);
+  const now = Date.now();
+  if(knew){
+    st.box = Math.min((st.box||0)+1, 5);
+    st.due = now + BOX_DAYS[st.box]*86400000;
+    st.reps = (st.reps||0)+1;
+    todayState.know++;
+  } else {
+    st.box = 1;
+    st.due = now + BOX_DAYS[1]*86400000;
+    st.reps = (st.reps||0)+1;
+    st.lapses = (st.lapses||0)+1;
+    todayState.review++;
+    const insertAt = Math.min(todayState.pos + 3, todayState.items.length);
+    todayState.items.splice(insertAt, 0, item);
+  }
+  setCardState(item.key, st);
+  logStudyToday();
+  todayState.pos++;
+  if(todayState.pos >= todayState.items.length) todayState.done = true;
+  render();
+}
+function renderToday(){
+  if(!todayState) initToday();
+  const headHtml = `
+    <div class="subject-head">
+      <div class="seal" style="background:var(--ink)">⏱</div>
+      <div>
+        <h2>Revisão do dia</h2>
+        <div class="count">Cartões vencidos agora, juntando todas as disciplinas</div>
+      </div>
+    </div>`;
+
+  if(todayState.items.length===0){
+    app.innerHTML = headHtml + `
+      <div class="flash-wrap">
+        <div class="deck-done">
+          <h3>Nada vencido por aqui 🎉</h3>
+          <p>Todos os cartões estão dentro do prazo de revisão. Volte mais tarde ou escolha uma disciplina específica.</p>
+          <button class="fbtn primary" onclick="goHome()">Voltar às disciplinas</button>
+        </div>
+      </div>`;
+    return;
+  }
+  if(todayState.done){
+    app.innerHTML = headHtml + `
+      <div class="flash-wrap">
+        <div class="deck-done">
+          <h3>Revisão do dia concluída ✅</h3>
+          <p>Sei: <b>${todayState.know}</b> · A revisar: <b>${todayState.review}</b>.</p>
+          <button class="fbtn primary" onclick="restartToday()">Revisar de novo</button>
+          <div style="margin-top:14px;"><button class="fbtn" onclick="goHome()" style="font-size:12px;">Voltar às disciplinas</button></div>
+        </div>
+      </div>`;
+    return;
+  }
+
+  const item = todayState.items[todayState.pos];
+  const st = getCardState(item.key);
+  const pct = Math.round((todayState.pos/todayState.items.length)*100);
+
+  app.innerHTML = headHtml + `
+    <div class="flash-wrap">
+      <div class="flash-progress">
+        <span class="mono">${todayState.pos+1} / ${todayState.items.length}</span>
+        <div class="track"><div class="track-fill" style="width:${pct}%;background:${item.subCor}"></div></div>
+        <span class="mono" title="nível de repetição">caixa ${st.box}/5</span>
+      </div>
+      <div class="flash-card" id="flashCard" onclick="this.classList.toggle('flipped')">
+        <div class="card-inner">
+          <div class="card-face card-front" style="border-top:4px solid ${item.subCor}">
+            <div class="flash-eyebrow flash-eyebrow-link" onclick="event.stopPropagation(); state={view:'submap',subjectId:'${item.subId}',topicIdx:${item.ti},mode:'map'}; render();" title="Ver no mapa mental">${item.subSelo} ${item.subNome} · ${item.parent} ↗</div>
+            ${escapeHtml(item.t)}
+          </div>
+          <div class="card-face card-back">${escapeHtml(item.d)}</div>
+        </div>
+      </div>
+      <div class="tap-hint">toque no cartão para revelar a resposta</div>
+      <div class="flash-controls">
+        <button class="fbtn review" onclick="answerToday(false)">A revisar</button>
+        <button class="fbtn know" onclick="answerToday(true)">Sei</button>
+      </div>
+      <div class="session-tally">
+        <span>Sei: <b>${todayState.know}</b></span>
+        <span>A revisar: <b>${todayState.review}</b></span>
+        <span>Restam: <b>${todayState.items.length - todayState.pos - 1}</b></span>
+      </div>
+    </div>`;
+}
+
 function flattenLeaves(sub){
   const out=[];
   sub.topicos.forEach((top,ti)=>top.subs.forEach((s,si)=>out.push({ti,si,parent:top.t,t:s.t,d:s.d,key:cardKey(sub.id,ti,si)})));
@@ -938,12 +1180,10 @@ function render(){
   if(state.view!=='stats'){
     rightHtml += `<button class="back-btn" onclick="openStats()">📊 Estatísticas</button>`;
   }
-  if(state.view!=='import'){
-    rightHtml += `<button class="back-btn" onclick="openImport()">⬆️ Importar</button>`;
-  }
   navRight.innerHTML = rightHtml;
 
   if(state.view==='home'){ renderHome(); return; }
+  if(state.view==='today'){ renderToday(); return; }
   if(state.view==='stats'){ renderStats(); return; }
   if(state.view==='import'){ renderImport(); return; }
   const sub = findSubject(state.subjectId);
@@ -1099,11 +1339,9 @@ function renderHome(){
   const diasProva = daysUntil(EXAM_DATE);
   const diasIsencao = daysUntil(ISENCAO_END);
   const diasInscricao = daysUntil(INSCR_END);
-  let prazoPillHtml = '';
-  if(diasIsencao>=0){
-    prazoPillHtml = `<div class="live-pill"><span class="dot" style="background:var(--brass)"></span><b>${diasIsencao}</b> ${diasIsencao===1?'dia':'dias'} p/ pedir isenção</div>`;
-  } else if(diasInscricao>=0){
-    prazoPillHtml = `<div class="live-pill"><span class="dot" style="background:var(--brass)"></span><b>${diasInscricao}</b> ${diasInscricao===1?'dia':'dias'} p/ se inscrever</div>`;
+  let reviewPillHtml = '';
+  if(liveDue>0){
+    reviewPillHtml = `<button class="live-pill live-pill-action" onclick="openToday()">▶ Revisar ${liveDue} ${liveDue===1?'cartão':'cartões'} de hoje</button>`;
   }
 
   app.innerHTML = `
@@ -1132,7 +1370,7 @@ function renderHome(){
         <div class="live-pill"><span class="dot" style="background:var(--brass)"></span>${streak>0 ? `<b>${streak}</b> ${streak===1?'dia seguido':'dias seguidos'}` : 'Comece sua sequência hoje'}</div>
         <div class="live-pill"><span class="dot" style="background:var(--accent)"></span><b>${livePct}%</b> de domínio geral</div>
         ${liveDue>0 ? `<div class="live-pill"><span class="dot" style="background:var(--crimson)"></span><b>${liveDue}</b> cartões para hoje</div>` : ''}
-        ${prazoPillHtml}
+        ${reviewPillHtml}
         <div class="live-pill"><span class="dot" style="background:var(--ink)"></span><b>${diasProva>=0?diasProva:0}</b> ${diasProva===1?'dia até a prova':'dias até a prova'} · 29/11</div>
       </div>
     </section>
@@ -1199,7 +1437,7 @@ function renderCustomTile(){
     </button>`;
 }
 
-function mindMapHtml(centerLabel, color, items, cardBuilder){
+function mindMapHtml(centerLabel, color, items, cardBuilder, extraControlsHtml){
   const n = items.length;
   const nodeW = 190, minGap = 34, startR = 82, pad = 120;
   const R = Math.max(200, Math.ceil((nodeW+minGap) / (2*Math.sin(Math.PI/n))));
@@ -1219,7 +1457,11 @@ function mindMapHtml(centerLabel, color, items, cardBuilder){
 
   return `
     <div class="map-viewport" id="mapViewport">
-      <button class="map-recenter" onclick="centerMap()" title="Centralizar mapa">◎ Centralizar</button>
+      <div class="map-controls-tr">
+        <button class="map-fullscreen" id="mapFullscreenBtn" onclick="toggleMapFullscreen()" title="Tela cheia">⛶ Tela cheia</button>
+        <button class="map-recenter" onclick="centerMap()" title="Centralizar mapa">◎ Centralizar</button>
+      </div>
+      ${extraControlsHtml || ''}
       <div class="map-hint">arraste para circular pelo mapa</div>
       <div class="map-world" id="mapWorld" style="width:${world}px;height:${world}px;">
         <svg class="connector-svg" width="${world}" height="${world}">
@@ -1237,16 +1479,21 @@ function initMapPan(){
   const worldEl = document.getElementById('mapWorld');
   if(!viewport || !worldEl) return;
   const world = parseFloat(worldEl.style.width);
-  let panX=0, panY=0, dragging=false, moved=false, startX=0, startY=0;
+  let panX=0, panY=0, scale=1, dragging=false, moved=false, startX=0, startY=0;
 
-  function apply(){ worldEl.style.transform = `translate(${panX}px, ${panY}px)`; }
+  function fitScale(){
+    const vw = viewport.clientWidth || 800, vh = viewport.clientHeight || 500;
+    return Math.min(1, (vw/world)*0.94, (vh/world)*0.94);
+  }
+  function apply(){ worldEl.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`; }
   function center(){
+    scale = fitScale();
     panX = viewport.clientWidth/2 - world/2;
     panY = viewport.clientHeight/2 - world/2;
     apply();
   }
   viewport.onpointerdown = (e)=>{
-    if(e.target.closest('.node-card')) return;
+    if(e.target.closest('.node-card, button, a')) return;
     dragging = true; moved = false;
     startX = e.clientX - panX; startY = e.clientY - panY;
     viewport.classList.add('grabbing');
@@ -1272,26 +1519,41 @@ function initMapPan(){
   }, true);
   center();
   window.__mapCenter = center;
+
+  ['fullscreenchange','webkitfullscreenchange'].forEach(evt=>{
+    viewport.addEventListener(evt, ()=>{
+      const btn = document.getElementById('mapFullscreenBtn');
+      const isFs = document.fullscreenElement===viewport || document.webkitFullscreenElement===viewport;
+      if(btn) btn.textContent = isFs ? '⤢ Sair da tela cheia' : '⛶ Tela cheia';
+      requestAnimationFrame(center);
+    });
+  });
 }
 function centerMap(){ if(window.__mapCenter) window.__mapCenter(); }
+function toggleMapFullscreen(){
+  const viewport = document.getElementById('mapViewport');
+  if(!viewport) return;
+  const isFs = document.fullscreenElement===viewport || document.webkitFullscreenElement===viewport;
+  try{
+    if(isFs){
+      const exit = document.exitFullscreen || document.webkitExitFullscreen;
+      if(exit) exit.call(document);
+    } else {
+      const req = viewport.requestFullscreen || viewport.webkitRequestFullscreen;
+      if(req) req.call(viewport);
+      else alert('Seu navegador não tem suporte a tela cheia neste contexto.');
+    }
+  }catch(e){}
+}
 
 function renderMap(sub){
   const mapHtml = mindMapHtml(sub.nome, sub.cor, sub.topicos, (top,i,x,y)=>`
-    <div class="node-card" data-i="${i}" style="left:${x}px; top:${y}px;" onclick="this.classList.toggle('flipped')">
-      <div class="card-inner">
-        <div class="card-face card-front" style="border-top:3px solid ${sub.cor}">
-          ${top.t}
-          <span class="flip-hint">virar ↻</span>
-        </div>
-        <div class="card-face card-back">
-          <div>${top.d}</div>
-          <div class="trap"><b>Pegadinha</b>${top.pegadinha}</div>
-          <div class="card-actions">
-            <button class="drill-btn" onclick="event.stopPropagation(); openSubmap(${i})">Ver ${top.subs.length} sub-ramos →</button>
-            <a class="quest-link" href="${questionsUrl(top.t, sub.banca)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">📝 Questões</a>
-          </div>
-        </div>
+    <div class="node-card flat" data-i="${i}" style="left:${x}px; top:${y}px;" onclick="openSubmap(${i})">
+      <div class="node-flat-face" style="border-top:3px solid ${sub.cor}">
+        <span class="node-flat-title">${top.t}</span>
+        <span class="node-flat-hint">${top.subs.length} sub-ramos →</span>
       </div>
+      <a class="node-flat-quest" href="${questionsUrl(top.t, sub.banca)}" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Buscar questões deste tópico">📝</a>
     </div>`);
 
   app.innerHTML = `
@@ -1299,7 +1561,7 @@ function renderMap(sub){
       <div class="seal" style="background:${sub.cor}">${sub.selo}</div>
       <div>
         <h2>${sub.nome}</h2>
-        <div class="count">${sub.topicos.length} ramos · arraste o mapa e vire os cartões</div>
+        <div class="count">${sub.topicos.length} ramos · clique num ramo para abrir os sub-ramos</div>
       </div>
       <div class="mode-toggle">
         <button class="active" onclick="setMode('map')">Mapa mental</button>
@@ -1317,15 +1579,20 @@ function renderSubmap(sub, ti){
     <div class="node-card leaf" data-i="${i}" style="left:${x}px; top:${y}px;" onclick="this.classList.toggle('flipped')">
       <div class="card-inner">
         <div class="card-face card-front" style="border-top:3px solid ${sub.cor}">
-          ${s.t}
+          ${escapeHtml(s.t)}
           <span class="flip-hint">virar ↻</span>
         </div>
         <div class="card-face card-back">
-          <div>${s.d}</div>
-          <a class="quest-link" href="${questionsUrl(top.t+' '+s.t, sub.banca)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">📝 Questões</a>
+          <div>${escapeHtml(s.d)}</div>
+          <div class="card-actions">
+            <button class="drill-btn" onclick="event.stopPropagation(); editLeaf('${sub.id}', ${ti}, ${i})">✎ Editar</button>
+            <a class="quest-link" href="${questionsUrl(top.t+' '+s.t, sub.banca)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">📝 Questões</a>
+          </div>
         </div>
       </div>
-    </div>`);
+    </div>`,
+    `<button class="map-add" onclick="addLeafPrompt('${sub.id}', ${ti})" title="Adicionar um cartão novo a este tópico">+ Adicionar cartão</button>`
+  );
 
   app.innerHTML = `
     <div class="crumbs">${sub.nome} <button onclick="backToSubject()">›</button> ${top.t}</div>
@@ -1335,6 +1602,10 @@ function renderSubmap(sub, ti){
         <h2>${top.t}</h2>
         <div class="count">${top.subs.length} sub-ramos deste tópico</div>
       </div>
+    </div>
+    <div class="topic-brief">
+      <p>${top.d}</p>
+      <div class="topic-brief-trap"><b>Pegadinha</b>${top.pegadinha}</div>
     </div>
     ${mapHtml}
   `;
@@ -1399,15 +1670,19 @@ function renderFlash(sub){
         <div class="card-inner">
           <div class="card-face card-front" style="border-top:4px solid ${sub.cor}">
             <div class="flash-eyebrow flash-eyebrow-link" onclick="event.stopPropagation(); openSubmap(${leaf.ti})" title="Ver no mapa mental">${leaf.parent} ↗</div>
-            ${leaf.t}
+            ${escapeHtml(leaf.t)}
           </div>
-          <div class="card-face card-back">${leaf.d}</div>
+          <div class="card-face card-back">${escapeHtml(leaf.d)}</div>
         </div>
       </div>
       <div class="tap-hint">toque no cartão para revelar a resposta</div>
       <div class="flash-controls">
         <button class="fbtn review" onclick="answerFlash('${sub.id}', false)">A revisar</button>
         <button class="fbtn know" onclick="answerFlash('${sub.id}', true)">Sei</button>
+      </div>
+      <div class="flash-meta-actions">
+        <button class="fbtn ghost" onclick="editLeaf('${sub.id}', ${leaf.ti}, ${leaf.si})">✎ Editar este cartão</button>
+        <button class="fbtn ghost" onclick="addLeafPrompt('${sub.id}', ${leaf.ti})">+ Adicionar cartão em «${escapeHtml(leaf.parent)}»</button>
       </div>
       <div class="session-tally">
         <span>Sei: <b>${fs.know}</b></span>
@@ -1477,6 +1752,14 @@ function pomodoroNavHtml(){
           <button onclick="pomodoroAdjust('break',-1)">−</button>
           <span class="mono" id="pomoBreakMin">${pomo.breakMin}</span>min
           <button onclick="pomodoroAdjust('break',1)">+</button>
+        </div>
+      </div>
+      <div class="pomo-sound-row">
+        <div class="pomo-sound-label">Som ambiente</div>
+        <div class="pomo-sound-opts" id="pomoSoundOpts">
+          <button class="pomo-sound-btn${ambientType==='off' ? ' active' : ''}" onclick="setAmbient('off')">Desligado</button>
+          <button class="pomo-sound-btn${ambientType==='piano' ? ' active' : ''}" onclick="setAmbient('piano')">🎹 Piano</button>
+          <button class="pomo-sound-btn${ambientType==='noise' ? ' active' : ''}" onclick="setAmbient('noise')">🌊 Foco</button>
         </div>
       </div>
     </div>
@@ -1553,6 +1836,88 @@ function pomodoroBeep(){
     osc.start();
     osc.stop(ctx.currentTime+0.35);
   }catch(e){}
+}
+
+/* ---------- Som ambiente (gerado por código, sem arquivos externos) ---------- */
+let ambientCtx = null;
+let ambientNodes = [];
+let ambientTimer = null;
+let ambientType = 'off';
+try{ ambientType = localStorage.getItem('issCaruaruAmbient_v1') || 'off'; }catch(e){}
+
+function ensureAmbientCtx(){
+  if(!ambientCtx){
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if(AC) ambientCtx = new AC();
+  }
+  if(ambientCtx && ambientCtx.state==='suspended') ambientCtx.resume();
+  return ambientCtx;
+}
+function stopAmbient(){
+  if(ambientTimer){ clearTimeout(ambientTimer); ambientTimer = null; }
+  ambientNodes.forEach(n=>{ try{ n.stop && n.stop(); }catch(e){} try{ n.disconnect && n.disconnect(); }catch(e){} });
+  ambientNodes = [];
+}
+function playPianoAmbient(){
+  const ctx = ensureAmbientCtx();
+  if(!ctx) return;
+  const master = ctx.createGain();
+  master.gain.value = 0.15;
+  master.connect(ctx.destination);
+  ambientNodes.push(master);
+  const scale = [261.63,293.66,329.63,392.00,440.00,523.25,587.33]; // dó pentatônica + um vizinho
+  function pluck(){
+    if(ambientType!=='piano') return;
+    const octaveDown = Math.random()<0.3 ? 0.5 : 1;
+    const freq = scale[Math.floor(Math.random()*scale.length)] * octaveDown;
+    const osc = ctx.createOscillator();
+    osc.type = 'triangle';
+    osc.frequency.value = freq;
+    const g = ctx.createGain();
+    const now = ctx.currentTime;
+    g.gain.setValueAtTime(0.0001, now);
+    g.gain.linearRampToValueAtTime(0.55, now+0.04);
+    g.gain.exponentialRampToValueAtTime(0.0001, now+2.6);
+    osc.connect(g); g.connect(master);
+    osc.start(now); osc.stop(now+2.7);
+    ambientTimer = setTimeout(pluck, 1300 + Math.random()*2000);
+  }
+  pluck();
+}
+function playFocusNoise(){
+  const ctx = ensureAmbientCtx();
+  if(!ctx) return;
+  const bufferSize = 2 * ctx.sampleRate;
+  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+  let lastOut = 0;
+  for(let i=0;i<bufferSize;i++){
+    const white = Math.random()*2-1;
+    lastOut = (lastOut + 0.02*white) / 1.02;
+    data[i] = lastOut * 3.2;
+  }
+  const noise = ctx.createBufferSource();
+  noise.buffer = buffer; noise.loop = true;
+  const filter = ctx.createBiquadFilter();
+  filter.type = 'lowpass'; filter.frequency.value = 850;
+  const g = ctx.createGain();
+  g.gain.value = 0.09;
+  noise.connect(filter); filter.connect(g); g.connect(ctx.destination);
+  noise.start();
+  ambientNodes.push(noise, filter, g);
+}
+function setAmbient(type){
+  ambientType = type;
+  stopAmbient();
+  if(type==='piano') playPianoAmbient();
+  else if(type==='noise') playFocusNoise();
+  try{ localStorage.setItem('issCaruaruAmbient_v1', type); }catch(e){}
+  const wrap = document.getElementById('pomoSoundOpts');
+  if(wrap){
+    [...wrap.children].forEach(btn=>btn.classList.remove('active'));
+    const idx = type==='off' ? 0 : (type==='piano' ? 1 : 2);
+    if(wrap.children[idx]) wrap.children[idx].classList.add('active');
+  }
 }
 
 function boot(){
