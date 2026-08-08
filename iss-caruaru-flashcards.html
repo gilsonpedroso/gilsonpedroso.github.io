@@ -242,6 +242,12 @@
   .subject-head .seal{ width:60px; height:60px; font-size:18px; }
   .subject-head h2{ margin:0; font-size:clamp(22px,3.2vw,30px); font-weight:560; }
   .subject-head .count{ font-size:13px; color:var(--ink-soft); margin-top:2px; }
+  .topic-flash-btn{
+    margin-top:10px; display:inline-flex; align-items:center; gap:7px;
+    color:#fff; border:none; border-radius:999px; padding:9px 18px;
+    font-size:13px; font-weight:600; box-shadow:0 8px 18px -10px rgba(20,27,46,0.5);
+  }
+  .topic-flash-btn:hover{ filter:brightness(1.08); transform:translateY(-1px); }
 
   .mode-toggle{
     display:inline-flex; background:var(--paper-2); border:1px solid var(--paper-line);
@@ -256,7 +262,7 @@
   /* ---------- Mind map (radial, pannable) ---------- */
   .map-viewport{
     position:relative; overflow:hidden; margin-top:12px;
-    height:min(64vh, 620px); min-height:400px;
+    height:min(72vh, 720px); min-height:440px;
     background:var(--paper-2); border:1px solid var(--paper-line); border-radius:var(--radius);
     cursor:grab; touch-action:none;
   }
@@ -409,6 +415,24 @@
   .plan-item span{ font-size:10.5px; color:var(--ink-soft); line-height:1.3; display:block; margin-top:5px; }
   .plan-deadline{ margin-top:14px; font-size:12px; color:var(--ink-soft); line-height:1.5; }
   .plan-deadline b{ color:var(--crimson); }
+  .checklist{ display:flex; flex-direction:column; gap:2px; }
+  .checklist-row{
+    display:flex; align-items:center; gap:12px; padding:10px 8px; border-radius:10px;
+    cursor:pointer; transition:background .12s ease; flex-wrap:wrap;
+  }
+  .checklist-row:hover{ background:rgba(20,27,46,0.05); }
+  .checklist-box{
+    width:20px; height:20px; border-radius:6px; border:1.5px solid var(--ink-soft); flex:none;
+    display:flex; align-items:center; justify-content:center; font-size:13px; color:#fff; font-weight:700;
+  }
+  .checklist-row.done .checklist-box{ background:var(--accent); border-color:var(--accent); }
+  .checklist-text{ flex:1; font-size:13.5px; color:var(--ink); min-width:160px; }
+  .checklist-text b{ font-family:'IBM Plex Mono',monospace; }
+  .checklist-row.done .checklist-text{ color:var(--ink-soft); text-decoration:line-through; text-decoration-color:var(--paper-line); }
+  .checklist-links{ display:flex; gap:10px; flex-wrap:wrap; }
+  .checklist-link{ font-size:11.5px; font-weight:600; color:var(--accent); text-decoration:none; white-space:nowrap; }
+  .checklist-link:hover{ text-decoration:underline; }
+  .plan-deadline b{ color:var(--crimson); }
 
   footer{ text-align:center; padding:36px 20px 50px; font-size:12px; color:var(--ink-soft); }
 
@@ -416,7 +440,7 @@
     .center-node{ width:110px; height:110px; font-size:12.5px; }
     .subject-head .mode-toggle{ margin-left:0; width:100%; }
     .subject-head .mode-toggle button{ flex:1; text-align:center; }
-    .map-viewport{ height:58vh; }
+    .map-viewport{ height:64vh; }
     .map-hint{ display:none; }
   }
   @media (prefers-reduced-motion: reduce){
@@ -828,6 +852,61 @@ function computeStreak(){
   return streak;
 }
 
+/* ---------- Lista de tarefas diárias ---------- */
+const CHECKLIST_KEY = 'issCaruaruChecklist_v1';
+const CHECKLIST_ITEMS = [
+  {id:'ce', qty:60, unit:'questões', label:'Conhecimentos Específicos', links:[
+    {t:'Tributário →', a:"openSubject('iss-tributario')"},
+    {t:'TI →', a:"openSubject('iss-ti')"},
+  ]},
+  {id:'pt', qty:30, unit:'questões', label:'Português', links:[
+    {t:'Português →', a:"openSubject('iss-portugues')"},
+  ]},
+  {id:'rlm', qty:10, unit:'questões', label:'Raciocínio Lógico', links:[
+    {t:'Raciocínio Lógico →', a:"openSubject('iss-rlm')"},
+  ]},
+  {id:'info', qty:10, unit:'questões', label:'Informática', links:[
+    {t:'Informática →', a:"openSubject('iss-informatica')"},
+  ]},
+  {id:'redacao', qty:1, unit:'redação', label:'25 a 30 linhas, à caneta', links:[]},
+  {id:'lei', qty:null, unit:'', label:'Ler a letra da lei (CTN)', links:[
+    {t:'Abrir CTN ↗', href:'https://www.planalto.gov.br/ccivil_03/leis/l5172compilado.htm'},
+  ]},
+  {id:'flash', qty:null, unit:'', label:'Fazer os flashcards pendentes', links:[
+    {t:'Revisão do dia →', a:'openToday()'},
+  ]},
+];
+function loadChecklistToday(){
+  let all = {};
+  try{ all = JSON.parse(localStorage.getItem(CHECKLIST_KEY) || '{}'); }catch(e){}
+  return all[todayStr()] || {};
+}
+function toggleChecklistItem(id){
+  let all = {};
+  try{ all = JSON.parse(localStorage.getItem(CHECKLIST_KEY) || '{}'); }catch(e){}
+  const t = todayStr();
+  if(!all[t]) all[t] = {};
+  all[t][id] = !all[t][id];
+  try{ localStorage.setItem(CHECKLIST_KEY, JSON.stringify(all)); }catch(e){}
+  render();
+}
+function checklistRowsHtml(){
+  const st = loadChecklistToday();
+  return CHECKLIST_ITEMS.map(it=>{
+    const checked = !!st[it.id];
+    const linksHtml = it.links.map(l=>{
+      if(l.href) return `<a class="checklist-link" href="${l.href}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${l.t}</a>`;
+      return `<a class="checklist-link" onclick="event.stopPropagation(); ${l.a}">${l.t}</a>`;
+    }).join('');
+    return `
+      <div class="checklist-row${checked ? ' done' : ''}" onclick="toggleChecklistItem('${it.id}')">
+        <span class="checklist-box">${checked ? '✓' : ''}</span>
+        <span class="checklist-text">${it.qty ? `<b>${it.qty}</b> ${it.unit} · ` : ''}${it.label}</span>
+        <span class="checklist-links">${linksHtml}</span>
+      </div>`;
+  }).join('');
+}
+
 /* ---------- Ranking de tópicos mais errados ---------- */
 function topMissed(limit){
   const all=[];
@@ -1029,12 +1108,13 @@ function setMode(mode){
 
 /* ---------- Revisão do dia (cartões vencidos de todas as disciplinas) ---------- */
 let todayState = null;
-function buildTodayPool(){
+let todayForceAll = false;
+function buildTodayPool(forceAll){
   const now = Date.now();
   const pool = [];
   SUBJECTS.forEach(sub=>{
     flattenLeaves(sub).forEach(l=>{
-      if(getCardState(l.key).due<=now){
+      if(forceAll || getCardState(l.key).due<=now){
         pool.push({ti:l.ti, si:l.si, parent:l.parent, t:l.t, d:l.d, key:l.key, subId:sub.id, subNome:sub.nome, subCor:sub.cor, subSelo:sub.selo});
       }
     });
@@ -1043,16 +1123,22 @@ function buildTodayPool(){
   pool.sort((a,b)=>getCardState(a.key).box - getCardState(b.key).box);
   return pool;
 }
-function initToday(){
-  const items = buildTodayPool();
+function initToday(forceAll){
+  todayForceAll = !!forceAll;
+  const items = buildTodayPool(todayForceAll);
   todayState = { items, pos:0, know:0, review:0, done: items.length===0 };
 }
 function openToday(){
-  initToday();
+  initToday(false);
   state = {view:'today', subjectId:null, topicIdx:null, mode:null};
   render();
 }
-function restartToday(){ initToday(); render(); }
+function openAllFlash(){
+  initToday(true);
+  state = {view:'today', subjectId:null, topicIdx:null, mode:null};
+  render();
+}
+function restartToday(){ initToday(todayForceAll); render(); }
 function answerToday(knew){
   const item = todayState.items[todayState.pos];
   const st = getCardState(item.key);
@@ -1145,6 +1231,103 @@ function renderToday(){
     </div>`;
 }
 
+/* ---------- Flashcards de um único tópico (a partir do submapa) ---------- */
+let topicFlashState = null;
+function openTopicFlash(subId, ti){
+  const sub = findSubject(subId);
+  const top = sub.topicos[ti];
+  const items = top.subs.map((s,si)=>({ti, si, parent:top.t, t:s.t, d:s.d, key:cardKey(subId,ti,si)}));
+  shuffleArr(items);
+  topicFlashState = { subId, ti, subCor:sub.cor, subSelo:sub.selo, subNome:sub.nome, topTitle:top.t, items, pos:0, know:0, review:0, done: items.length===0 };
+  state = {view:'topicflash', subjectId:subId, topicIdx:ti, mode:null};
+  render();
+}
+function restartTopicFlash(){
+  openTopicFlash(topicFlashState.subId, topicFlashState.ti);
+}
+function answerTopicFlash(knew){
+  const fs = topicFlashState;
+  const item = fs.items[fs.pos];
+  const st = getCardState(item.key);
+  const now = Date.now();
+  if(knew){
+    st.box = Math.min((st.box||0)+1, 5);
+    st.due = now + BOX_DAYS[st.box]*86400000;
+    st.reps = (st.reps||0)+1;
+    fs.know++;
+  } else {
+    st.box = 1;
+    st.due = now + BOX_DAYS[1]*86400000;
+    st.reps = (st.reps||0)+1;
+    st.lapses = (st.lapses||0)+1;
+    fs.review++;
+    const insertAt = Math.min(fs.pos + 3, fs.items.length);
+    fs.items.splice(insertAt, 0, item);
+  }
+  setCardState(item.key, st);
+  logStudyToday();
+  fs.pos++;
+  if(fs.pos >= fs.items.length) fs.done = true;
+  render();
+}
+function renderTopicFlash(){
+  const fs = topicFlashState;
+  if(!fs) return;
+  const headHtml = `
+    <div class="crumbs">${fs.subNome} <button onclick="openSubmap(${fs.ti})">›</button> ${fs.topTitle}</div>
+    <div class="subject-head">
+      <div class="seal" style="background:${fs.subCor}">${fs.subSelo}</div>
+      <div>
+        <h2>${fs.topTitle}</h2>
+        <div class="count">Flashcards deste tópico · ${fs.items.length} cartões</div>
+      </div>
+    </div>`;
+
+  if(fs.done){
+    app.innerHTML = headHtml + `
+      <div class="flash-wrap">
+        <div class="deck-done">
+          <h3>Tópico revisado ✅</h3>
+          <p>Sei: <b>${fs.know}</b> · A revisar: <b>${fs.review}</b>.</p>
+          <button class="fbtn primary" onclick="restartTopicFlash()">Revisar de novo</button>
+          <div style="margin-top:14px;"><button class="fbtn" onclick="openSubmap(${fs.ti})" style="font-size:12px;">Voltar ao mapa do tópico</button></div>
+        </div>
+      </div>`;
+    return;
+  }
+
+  const item = fs.items[fs.pos];
+  const st = getCardState(item.key);
+  const pct = Math.round((fs.pos/fs.items.length)*100);
+
+  app.innerHTML = headHtml + `
+    <div class="flash-wrap">
+      <div class="flash-progress">
+        <span class="mono">${fs.pos+1} / ${fs.items.length}</span>
+        <div class="track"><div class="track-fill" style="width:${pct}%;background:${fs.subCor}"></div></div>
+        <span class="mono" title="nível de repetição">caixa ${st.box}/5</span>
+      </div>
+      <div class="flash-card" id="flashCard" onclick="this.classList.toggle('flipped')">
+        <div class="card-inner">
+          <div class="card-face card-front" style="border-top:4px solid ${fs.subCor}">
+            ${escapeHtml(item.t)}
+          </div>
+          <div class="card-face card-back">${escapeHtml(item.d)}</div>
+        </div>
+      </div>
+      <div class="tap-hint">toque no cartão para revelar a resposta</div>
+      <div class="flash-controls">
+        <button class="fbtn review" onclick="answerTopicFlash(false)">A revisar</button>
+        <button class="fbtn know" onclick="answerTopicFlash(true)">Sei</button>
+      </div>
+      <div class="session-tally">
+        <span>Sei: <b>${fs.know}</b></span>
+        <span>A revisar: <b>${fs.review}</b></span>
+        <span>Restam: <b>${fs.items.length - fs.pos - 1}</b></span>
+      </div>
+    </div>`;
+}
+
 function flattenLeaves(sub){
   const out=[];
   sub.topicos.forEach((top,ti)=>top.subs.forEach((s,si)=>out.push({ti,si,parent:top.t,t:s.t,d:s.d,key:cardKey(sub.id,ti,si)})));
@@ -1184,6 +1367,7 @@ function render(){
 
   if(state.view==='home'){ renderHome(); return; }
   if(state.view==='today'){ renderToday(); return; }
+  if(state.view==='topicflash'){ renderTopicFlash(); return; }
   if(state.view==='stats'){ renderStats(); return; }
   if(state.view==='import'){ renderImport(); return; }
   const sub = findSubject(state.subjectId);
@@ -1328,6 +1512,7 @@ function subjectCardHtml(s){
 }
 
 function renderHome(){
+  const checklistDone = CHECKLIST_ITEMS.filter(it=>loadChecklistToday()[it.id]).length;
   const totalLeaf = SUBJECTS.reduce((n,s)=>n+flattenLeaves(s).length,0);
   const totalTopics = SUBJECTS.reduce((n,s)=>n+s.topicos.length,0);
   const streak = computeStreak();
@@ -1360,7 +1545,7 @@ function renderHome(){
       </svg>
       <div class="eyebrow">Edital 01/2026 · Analista Fiscal Municipal — TI</div>
       <h1>Sua rota para o <em>1º lugar</em> em Caruaru.</h1>
-      <p>Cinco disciplinas do edital, cada uma com mapa mental e pegadinha de prova. Revise no modo flashcard com repetição espaçada — é aqui que você entra todo dia, antes das 120 questões e das 2 redações.</p>
+      <p>Cinco disciplinas do edital, cada uma com mapa mental e pegadinha de prova. Marque suas tarefas do dia, revise no modo flashcard com repetição espaçada — é aqui que você entra todo dia, antes de abrir os cadernos de questões.</p>
       <div class="stat-row">
         <div class="stat"><b>${SUBJECTS.length}</b><span>Disciplinas</span></div>
         <div class="stat"><b>${totalTopics}</b><span>Ramos principais</span></div>
@@ -1377,17 +1562,11 @@ function renderHome(){
 
     <div class="plan-card">
       <div class="plan-card-head">
-        <span class="plan-tag">Seu plano de hoje</span>
-        <span class="plan-exam">Analista Fiscal Municipal — TI · Prova 29/11/2026</span>
+        <span class="plan-tag">Tarefas de hoje</span>
+        <span class="plan-exam">${checklistDone}/${CHECKLIST_ITEMS.length} concluídas</span>
       </div>
-      <div class="plan-grid">
-        <div class="plan-item" style="--pc:${SUBJECTS[0] ? SUBJECTS[0].cor : ''}"><b>80</b><span>questões<br>Conhec. Específicos</span></div>
-        <div class="plan-item" style="--pc:${SUBJECTS[2] ? SUBJECTS[2].cor : ''}"><b>25</b><span>questões<br>Português</span></div>
-        <div class="plan-item" style="--pc:${SUBJECTS[3] ? SUBJECTS[3].cor : ''}"><b>8</b><span>questões<br>Raciocínio Lógico</span></div>
-        <div class="plan-item" style="--pc:${SUBJECTS[4] ? SUBJECTS[4].cor : ''}"><b>7</b><span>questões<br>Informática</span></div>
-        <div class="plan-item" style="--pc:var(--crimson)"><b>2</b><span>redações<br>25 a 30 linhas</span></div>
-      </div>
-      <div class="plan-deadline">Errou ou ficou em dúvida → cai automaticamente na fila de revisão dos flashcards abaixo. ${diasIsencao>=0 ? `<b>Isenção da taxa: peça até ${diasIsencao} ${diasIsencao===1?'dia':'dias'}.</b>` : (diasInscricao>=0 ? `<b>Inscrição aberta: faltam ${diasInscricao} ${diasInscricao===1?'dia':'dias'}.</b>` : '')}</div>
+      <div class="checklist">${checklistRowsHtml()}</div>
+      <div class="plan-deadline">Clique na tarefa pra marcar como feita — reseta sozinho à meia-noite. ${diasIsencao>=0 ? `<b>Isenção da taxa: peça até ${diasIsencao} ${diasIsencao===1?'dia':'dias'}.</b>` : (diasInscricao>=0 ? `<b>Inscrição aberta: faltam ${diasInscricao} ${diasInscricao===1?'dia':'dias'}.</b>` : '')}</div>
     </div>
 
     <div class="section-label">Edital 01/2026 — Analista Fiscal Municipal (TI)</div>
@@ -1483,7 +1662,7 @@ function initMapPan(){
 
   function fitScale(){
     const vw = viewport.clientWidth || 800, vh = viewport.clientHeight || 500;
-    return Math.min(1, (vw/world)*0.94, (vh/world)*0.94);
+    return Math.max(0.72, Math.min(1, (vw/world)*0.94, (vh/world)*0.94));
   }
   function apply(){ worldEl.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`; }
   function center(){
@@ -1586,7 +1765,6 @@ function renderSubmap(sub, ti){
           <div>${escapeHtml(s.d)}</div>
           <div class="card-actions">
             <button class="drill-btn" onclick="event.stopPropagation(); editLeaf('${sub.id}', ${ti}, ${i})">✎ Editar</button>
-            <a class="quest-link" href="${questionsUrl(top.t+' '+s.t, sub.banca)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">📝 Questões</a>
           </div>
         </div>
       </div>
@@ -1601,6 +1779,7 @@ function renderSubmap(sub, ti){
       <div>
         <h2>${top.t}</h2>
         <div class="count">${top.subs.length} sub-ramos deste tópico</div>
+        <button class="topic-flash-btn" style="background:${sub.cor}" onclick="openTopicFlash('${sub.id}', ${ti})">🃏 Flashcards deste tópico</button>
       </div>
     </div>
     <div class="topic-brief">
